@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started — EmptyOS</title>
+  <meta name="description" content="Install EmptyOS and boot your personal OS in minutes">
+  <meta property="og:title" content="Getting Started">
+  <meta property="og:description" content="Install EmptyOS and boot your personal OS in minutes">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="site.css">
+  <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
+  
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="max-width:900px">
+      <a href="index.html" class="site-name">EmptyOS</a>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="apps.html">Apps</a>
+        <a href="plugins.html">Plugins</a>
+        <a href="tags.html">Tags</a>
+        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+      </nav>
+    </div>
+  </header>
+  <div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
+    <div class="search-box">
+      <input class="search-input" id="search-input" placeholder="Search posts..." oninput="doSearch(this.value)" autofocus>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+  <main class="container">
+    <div class="docs-layout">
+  <nav class="docs-sidebar">
+    <div class="sidebar-title">Documentation</div>
+    <ul>
+      <li><a href="getting-started.html" class="active">Getting Started</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="apps.html">Apps</a></li>
+      <li><a href="plugins.html">Plugins</a></li>
+
+    </ul>
+  </nav>
+  <article>
+    <h1 style="font-size:1.8rem;color:var(--text-heading);margin-bottom:20px;font-weight:700">Getting Started</h1>
+    <div class="article">
+      <h2 id="requirements">Requirements<a class="header-link" href="#requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Python 3.11+</li>
+<li>A markdown vault (any folder of <code>.md</code> files works)</li>
+<li>Optional: Ollama for local LLM, ComfyUI for image generation</li>
+</ul>
+<h2 id="installation">Installation<a class="header-link" href="#installation" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/anthropics/emptyos.git
+<span class="nb">cd</span><span class="w"> </span>emptyos
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</code></pre></div>
+
+<h2 id="configuration">Configuration<a class="header-link" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>Copy the example config and set your vault path:</p>
+<div class="highlight"><pre><span></span><code>cp<span class="w"> </span>emptyos.example.toml<span class="w"> </span>emptyos.toml
+</code></pre></div>
+
+<p>Edit <code>emptyos.toml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[notes]</span>
+<span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;D:/Your-Vault&quot;</span><span class="w">     </span><span class="c1"># Path to your markdown vault</span>
+
+<span class="k">[server]</span>
+<span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">9000</span>
+</code></pre></div>
+
+<h2 id="first-boot">First Boot<a class="header-link" href="#first-boot" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>emptyos<span class="w"> </span>start
+</code></pre></div>
+
+<p>Open <code>http://localhost:9000</code> — you'll see the home screen with all discovered apps, system stats, and live events.</p>
+<h2 id="key-urls">Key URLs<a class="header-link" href="#key-urls" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>localhost:9000/</code></td>
+<td>Home — app launcher, stats, events</td>
+</tr>
+<tr>
+<td><code>localhost:9000/topology</code></td>
+<td>Live dependency graph</td>
+</tr>
+<tr>
+<td><code>localhost:9000/docs</code></td>
+<td>API documentation (Swagger)</td>
+</tr>
+<tr>
+<td><code>localhost:9000/{app}/</code></td>
+<td>Any app's UI</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cli-access">CLI Access<a class="header-link" href="#cli-access" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>eos<span class="w">                     </span><span class="c1"># System status</span>
+eos<span class="w"> </span>health<span class="w">              </span><span class="c1"># Full health check</span>
+eos<span class="w"> </span>app<span class="w"> </span>list<span class="w">            </span><span class="c1"># All apps</span>
+eos<span class="w"> </span>app<span class="w"> </span>info<span class="w"> </span>capture<span class="w">    </span><span class="c1"># Self-documenting app details</span>
+eos<span class="w"> </span>capture<span class="w"> </span><span class="s2">&quot;my idea&quot;</span><span class="w">   </span><span class="c1"># Quick capture to vault</span>
+eos<span class="w"> </span>search<span class="w"> </span><span class="s2">&quot;cable&quot;</span><span class="w">      </span><span class="c1"># Vault search</span>
+</code></pre></div>
+
+<p>The CLI detects a running daemon and proxies via HTTP. No daemon? Falls back to a local kernel.</p>
+<h2 id="create-your-first-app">Create Your First App<a class="header-link" href="#create-your-first-app" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>eos<span class="w"> </span>new-app<span class="w"> </span>myapp
+</code></pre></div>
+
+<p>This generates a manifest + app.py + pages/ directory. Edit <code>apps/myapp/app.py</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyApp</span><span class="p">(</span><span class="n">BaseApp</span><span class="p">):</span>
+    <span class="nd">@web_route</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;/api/hello&quot;</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">api_hello</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">think</span><span class="p">(</span><span class="s2">&quot;Say hello creatively&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">result</span><span class="p">}</span>
+</code></pre></div>
+
+<p>Restart the server — your app appears in the home screen with an auto-generated UI.</p>
+<h2 id="next-steps">Next Steps<a class="header-link" href="#next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Read the <a href="architecture.html">Architecture</a> overview to understand the kernel, capabilities, and event system</li>
+<li>Browse the <a href="apps.html">App Catalog</a> to see what's built in</li>
+<li>Check <a href="plugins.html">Plugins</a> to connect external services</li>
+</ul>
+    </div>
+  </article>
+</div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      Powered by <a href="https://github.com/anthropics/emptyos">EmptyOS</a>
+    </div>
+  </footer>
+  <script>
+  // Theme toggle
+  (function(){
+    try{var t=localStorage.getItem('site-theme');if(t==='alt-theme')document.body.classList.add('alt-theme');}catch(e){}
+  })();
+  function toggleTheme(){
+    document.body.classList.toggle('alt-theme');
+    try{localStorage.setItem('site-theme',document.body.classList.contains('alt-theme')?'alt-theme':'dark');}catch(e){}
+    var btn=document.querySelector('.theme-toggle');
+    btn.innerHTML=document.body.classList.contains('alt-theme')?'&#9788;':'&#9790;';
+  }
+  // Search
+  var _searchIndex=null;
+  function openSearch(){
+    document.getElementById('search-overlay').classList.add('open');
+    document.getElementById('search-input').focus();
+  }
+  function closeSearch(){
+    document.getElementById('search-overlay').classList.remove('open');
+  }
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
+    if(e.key==='Escape')closeSearch();
+  });
+  function doSearch(q){
+    if(!_searchIndex){
+      var searchUrl='search-index.json';
+      if(location.pathname.indexOf('/publish/api/')>=0)searchUrl='/publish/api/site-file?path=search-index.json';
+      fetch(searchUrl).then(function(r){return r.json();}).then(function(d){_searchIndex=d;doSearch(q);});
+      return;
+    }
+    var el=document.getElementById('search-results');
+    if(!q.trim()){el.innerHTML='';return;}
+    var lq=q.toLowerCase();
+    var hits=_searchIndex.filter(function(p){
+      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
+    }).slice(0,8);
+    el.innerHTML=hits.map(function(p){
+      var href=p.type==='page'?(''+p.slug+'.html'):(''+'posts/'+p.slug+'.html');
+      return '<a class="search-result" href="'+href+'">'
+        +'<div class="search-result-title">'+p.title+'</div>'
+        +'<div class="search-result-summary">'+p.date+' &middot; '+(p.summary||'').substring(0,100)+'</div></a>';
+    }).join('')||'<div style="padding:12px;color:var(--text-muted);font-size:0.85rem">No results</div>';
+  }
+  </script>
+</body>
+</html>

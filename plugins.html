@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plugins — EmptyOS</title>
+  <meta name="description" content="How plugins extend EmptyOS — services, enhancers, and graceful degradation">
+  <meta property="og:title" content="Plugins">
+  <meta property="og:description" content="How plugins extend EmptyOS — services, enhancers, and graceful degradation">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="site.css">
+  <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
+  
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="max-width:900px">
+      <a href="index.html" class="site-name">EmptyOS</a>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="apps.html">Apps</a>
+        <a href="plugins.html">Plugins</a>
+        <a href="tags.html">Tags</a>
+        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+      </nav>
+    </div>
+  </header>
+  <div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
+    <div class="search-box">
+      <input class="search-input" id="search-input" placeholder="Search posts..." oninput="doSearch(this.value)" autofocus>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+  <main class="container">
+    <div class="docs-layout">
+  <nav class="docs-sidebar">
+    <div class="sidebar-title">Documentation</div>
+    <ul>
+      <li><a href="getting-started.html">Getting Started</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="apps.html">Apps</a></li>
+      <li><a href="plugins.html" class="active">Plugins</a></li>
+
+    </ul>
+  </nav>
+  <article>
+    <h1 style="font-size:1.8rem;color:var(--text-heading);margin-bottom:20px;font-weight:700">Plugins</h1>
+    <div class="article">
+      <h2 id="plugin-types">Plugin Types<a class="header-link" href="#plugin-types" title="Permanent link">&para;</a></h2>
+<p>Plugins come in two flavors:</p>
+<p><strong>Service plugins</strong> expose named services that apps access explicitly via <code>self.require("name")</code> or <code>self.service("name")</code>.</p>
+<p><strong>Enhancer plugins</strong> dynamically inject providers into capabilities at startup. If the plugin is absent or offline, the capability falls back to the next provider. No app code changes needed.</p>
+<p>This is the <strong>Graceful Enhancement</strong> pattern: capabilities degrade silently when a plugin goes offline. Your search still works without the search enhancer — it just loses graph-aware features.</p>
+<h2 id="active-plugins">Active Plugins<a class="header-link" href="#active-plugins" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Plugin</th>
+<th>Type</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>health</strong></td>
+<td>Service</td>
+<td>Heartbeat monitoring, capability probes, GPU VRAM tracking</td>
+</tr>
+<tr>
+<td><strong>ollama</strong></td>
+<td>Enhancer (think)</td>
+<td>Local LLM via Ollama — models, generate, embeddings</td>
+</tr>
+<tr>
+<td><strong>comfyui</strong></td>
+<td>Enhancer (draw)</td>
+<td>GPU image/video/music generation with 8 style presets</td>
+</tr>
+<tr>
+<td><strong>voice-api</strong></td>
+<td>Enhancer (speak+listen)</td>
+<td>TTS (F5-TTS) and STT (Whisper)</td>
+</tr>
+<tr>
+<td><strong>applio</strong></td>
+<td>Service</td>
+<td>AI voice conversion</td>
+</tr>
+<tr>
+<td><strong>notifications</strong></td>
+<td>Service</td>
+<td>Vault + Telegram push notifications</td>
+</tr>
+<tr>
+<td><strong>telegram</strong></td>
+<td>Service</td>
+<td>Two-way Telegram bot — commands in, notifications out</td>
+</tr>
+<tr>
+<td><strong>blender</strong></td>
+<td>Service</td>
+<td>3D cable routing via Blender automation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-enhancers-work">How Enhancers Work<a class="header-link" href="#how-enhancers-work" title="Permanent link">&para;</a></h2>
+<p>When the Ollama plugin starts, it registers itself as a provider for the <code>think</code> capability at priority 0 (highest). The capability's provider chain becomes:</p>
+<div class="highlight"><pre><span></span><code>think: ollama → openai → claude-cli → human
+</code></pre></div>
+
+<p>If Ollama crashes mid-request, the capability automatically falls back to OpenAI. Apps never see the failure — they just get a response.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># This code never changes regardless of which providers are available</span>
+<span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">think</span><span class="p">(</span><span class="s2">&quot;Analyze this code&quot;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s2">&quot;code&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="plugin-configuration">Plugin Configuration<a class="header-link" href="#plugin-configuration" title="Permanent link">&para;</a></h2>
+<p>Plugins are configured in <code>emptyos.toml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[plugins.ollama]</span>
+<span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://localhost:11434&quot;</span>
+
+<span class="k">[plugins.comfyui]</span>
+<span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://127.0.0.1:8188&quot;</span>
+<span class="n">launcher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;D:/ComfyUI/run.bat&quot;</span>
+
+<span class="k">[plugins.telegram]</span>
+<span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bot-token-here&quot;</span>
+<span class="n">allowed_users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">123456789</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Plugins with a <code>launcher</code> config can auto-start their external service when EmptyOS boots.</p>
+<h2 id="auto-start-pattern">Auto-Start Pattern<a class="header-link" href="#auto-start-pattern" title="Permanent link">&para;</a></h2>
+<p>External services use embedded runtimes with headless launch:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Plugin auto_start() — no visible windows</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">python_exe</span><span class="p">,</span> <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="n">main_py</span><span class="p">,</span> <span class="s2">&quot;--flags&quot;</span><span class="p">],</span>
+    <span class="n">cwd</span><span class="o">=</span><span class="n">launcher_dir</span><span class="p">,</span>
+    <span class="n">creationflags</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">CREATE_NO_WINDOW</span><span class="p">,</span>
+    <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span>
+    <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>The health plugin polls each service endpoint until ready, with a 60-second timeout.</p>
+<h2 id="writing-a-plugin">Writing a Plugin<a class="header-link" href="#writing-a-plugin" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyPlugin</span><span class="p">(</span><span class="n">BasePlugin</span><span class="p">):</span>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Register as a service</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_service</span><span class="p">(</span><span class="s2">&quot;my_service&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1"># Or inject into a capability (enhancer pattern)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inject_provider</span><span class="p">(</span><span class="s2">&quot;think&quot;</span><span class="p">,</span> <span class="n">MyProvider</span><span class="p">(),</span> <span class="n">priority</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">on_stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+</code></pre></div>
+
+<p>Place in <code>plugins/my-plugin/</code> with a <code>plugin.py</code> and manifest. The plugin loader discovers it automatically.</p>
+    </div>
+  </article>
+</div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      Powered by <a href="https://github.com/anthropics/emptyos">EmptyOS</a>
+    </div>
+  </footer>
+  <script>
+  // Theme toggle
+  (function(){
+    try{var t=localStorage.getItem('site-theme');if(t==='alt-theme')document.body.classList.add('alt-theme');}catch(e){}
+  })();
+  function toggleTheme(){
+    document.body.classList.toggle('alt-theme');
+    try{localStorage.setItem('site-theme',document.body.classList.contains('alt-theme')?'alt-theme':'dark');}catch(e){}
+    var btn=document.querySelector('.theme-toggle');
+    btn.innerHTML=document.body.classList.contains('alt-theme')?'&#9788;':'&#9790;';
+  }
+  // Search
+  var _searchIndex=null;
+  function openSearch(){
+    document.getElementById('search-overlay').classList.add('open');
+    document.getElementById('search-input').focus();
+  }
+  function closeSearch(){
+    document.getElementById('search-overlay').classList.remove('open');
+  }
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
+    if(e.key==='Escape')closeSearch();
+  });
+  function doSearch(q){
+    if(!_searchIndex){
+      var searchUrl='search-index.json';
+      if(location.pathname.indexOf('/publish/api/')>=0)searchUrl='/publish/api/site-file?path=search-index.json';
+      fetch(searchUrl).then(function(r){return r.json();}).then(function(d){_searchIndex=d;doSearch(q);});
+      return;
+    }
+    var el=document.getElementById('search-results');
+    if(!q.trim()){el.innerHTML='';return;}
+    var lq=q.toLowerCase();
+    var hits=_searchIndex.filter(function(p){
+      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
+    }).slice(0,8);
+    el.innerHTML=hits.map(function(p){
+      var href=p.type==='page'?(''+p.slug+'.html'):(''+'posts/'+p.slug+'.html');
+      return '<a class="search-result" href="'+href+'">'
+        +'<div class="search-result-title">'+p.title+'</div>'
+        +'<div class="search-result-summary">'+p.date+' &middot; '+(p.summary||'').substring(0,100)+'</div></a>';
+    }).join('')||'<div style="padding:12px;color:var(--text-muted);font-size:0.85rem">No results</div>';
+  }
+  </script>
+</body>
+</html>

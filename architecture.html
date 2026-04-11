@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Architecture — EmptyOS</title>
+  <meta name="description" content="How EmptyOS works — kernel, capabilities, apps, events, and the vault">
+  <meta property="og:title" content="Architecture">
+  <meta property="og:description" content="How EmptyOS works — kernel, capabilities, apps, events, and the vault">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="site.css">
+  <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
+  
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="max-width:900px">
+      <a href="index.html" class="site-name">EmptyOS</a>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="apps.html">Apps</a>
+        <a href="plugins.html">Plugins</a>
+        <a href="tags.html">Tags</a>
+        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+      </nav>
+    </div>
+  </header>
+  <div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
+    <div class="search-box">
+      <input class="search-input" id="search-input" placeholder="Search posts..." oninput="doSearch(this.value)" autofocus>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+  <main class="container">
+    <div class="docs-layout">
+  <nav class="docs-sidebar">
+    <div class="sidebar-title">Documentation</div>
+    <ul>
+      <li><a href="getting-started.html">Getting Started</a></li>
+      <li><a href="architecture.html" class="active">Architecture</a></li>
+      <li><a href="apps.html">Apps</a></li>
+      <li><a href="plugins.html">Plugins</a></li>
+
+    </ul>
+  </nav>
+  <article>
+    <h1 style="font-size:1.8rem;color:var(--text-heading);margin-bottom:20px;font-weight:700">Architecture</h1>
+    <div class="article">
+      <h2 id="core-thesis">Core Thesis<a class="header-link" href="#core-thesis" title="Permanent link">&para;</a></h2>
+<p><strong>An operating system is just a human doing things.</strong> Reading files, writing notes, thinking about problems, searching for information. These are human capabilities first. Tools are optional accelerators.</p>
+<p>EmptyOS works at every level:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>What</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Autonomous</strong></td>
+<td>Scheduled agents, event-driven automation</td>
+<td>Cron jobs, file watchers</td>
+</tr>
+<tr>
+<td><strong>Smart Tools</strong></td>
+<td>LLM for thinking, semantic search</td>
+<td>OpenAI, Ollama, Claude</td>
+</tr>
+<tr>
+<td><strong>Basic Tools</strong></td>
+<td>File I/O, grep, cron</td>
+<td>Filesystem, ripgrep</td>
+</tr>
+<tr>
+<td><strong>Human</strong></td>
+<td>You read, you write, you think</td>
+<td>Always the final fallback</td>
+</tr>
+</tbody>
+</table>
+<h2 id="three-layers">Three Layers<a class="header-link" href="#three-layers" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────┐
+│  Apps (62, all first-class)                  │
+│  capture  search  journal  expense  task     │
+│  assistant  music-studio  jobs  finance ...  │
+├─────────────────────────────────────────────┤
+│  Platform Runtime                            │
+│  Services: vault watcher, scheduler,         │
+│            real-time WebSocket, workers       │
+│  Libraries: frontend (theme + components)    │
+│  Connectors: ollama, comfyui, voice-api      │
+├─────────────────────────────────────────────┤
+│  Kernel                                      │
+│  Config, 7 Capabilities, EventBus,           │
+│  ServiceRegistry, AppLoader, PluginLoader    │
+└─────────────────────────────────────────────┘
+</code></pre></div>
+
+<p><strong>Kernel</strong> — config, capabilities with provider chains, event bus, service registry, loaders. Human is always the final fallback.</p>
+<p><strong>Platform Runtime</strong> — shared infrastructure: services (always-running), libraries (imported), connectors (external adapters).</p>
+<p><strong>Apps</strong> — everything user-facing. All apps share the same manifest format and lifecycle. A capture app and a music studio are both apps — the difference is what they declare in their manifest.</p>
+<h2 id="7-capabilities">7 Capabilities<a class="header-link" href="#7-capabilities" title="Permanent link">&para;</a></h2>
+<p>Every app accesses the world through capabilities, never direct tools:</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Providers</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>think</strong></td>
+<td>ollama, openai, claude-cli, human</td>
+<td>LLM reasoning</td>
+</tr>
+<tr>
+<td><strong>read</strong></td>
+<td>filesystem, human</td>
+<td>Read files</td>
+</tr>
+<tr>
+<td><strong>write</strong></td>
+<td>filesystem, human</td>
+<td>Write files</td>
+</tr>
+<tr>
+<td><strong>search</strong></td>
+<td>grep, human</td>
+<td>Find content</td>
+</tr>
+<tr>
+<td><strong>speak</strong></td>
+<td>voice-api</td>
+<td>Text to speech</td>
+</tr>
+<tr>
+<td><strong>listen</strong></td>
+<td>whisper</td>
+<td>Speech to text</td>
+</tr>
+<tr>
+<td><strong>draw</strong></td>
+<td>comfyui</td>
+<td>Image generation</td>
+</tr>
+</tbody>
+</table>
+<p>Provider chains try each provider in order. If Ollama is down, fall back to OpenAI. If that fails, ask the human. Apps never know which provider answered — they just call <code>self.think()</code>.</p>
+<h2 id="the-app-model">The App Model<a class="header-link" href="#the-app-model" title="Permanent link">&para;</a></h2>
+<p>An app = manifest (TOML) + backend (Python) + UI (HTML). Every app declares what it needs:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[app]</span>
+<span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;myapp&quot;</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;My App&quot;</span>
+
+<span class="k">[requires]</span>
+<span class="n">capabilities</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;read&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;write&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;think&quot;</span><span class="p">]</span>
+<span class="n">apps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;task&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;journal&quot;</span><span class="p">]</span>
+
+<span class="k">[provides.web]</span>
+<span class="n">prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/myapp&quot;</span>
+
+<span class="k">[provides.events]</span>
+<span class="n">emits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;myapp:done&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyApp</span><span class="p">(</span><span class="n">BaseApp</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;file.md&quot;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">think</span><span class="p">(</span><span class="s2">&quot;Analyze this&quot;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s2">&quot;code&quot;</span><span class="p">)</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_app</span><span class="p">(</span><span class="s2">&quot;task&quot;</span><span class="p">,</span> <span class="s2">&quot;list_tasks&quot;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;myapp:done&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span><span class="p">})</span>
+</code></pre></div>
+
+<h2 id="event-bus">Event Bus<a class="header-link" href="#event-bus" title="Permanent link">&para;</a></h2>
+<p>Apps communicate through events, not imports. When you capture a note tagged <code>#dev</code>, the capture app emits <code>capture:saved</code>. The projects app listens, routes it to the right project. The reactor app chains events into journal entries.</p>
+<p>One action ripples to all related vault files. The system knows what happened — it writes it down.</p>
+<h2 id="vault-as-hard-drive">Vault as Hard Drive<a class="header-link" href="#vault-as-hard-drive" title="Permanent link">&para;</a></h2>
+<p>The vault is an external markdown folder mounted via config. Two storage domains:</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>What</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vault</strong></td>
+<td>User knowledge — journal, contacts, projects, expenses</td>
+<td>External markdown files</td>
+</tr>
+<tr>
+<td><strong>data/</strong></td>
+<td>Machine telemetry — event history, billing, sessions</td>
+<td>SQLite/JSON</td>
+</tr>
+</tbody>
+</table>
+<p>If a human wrote it or needs it after reset → vault. If the system generates it at high frequency → <code>data/</code>.</p>
+<p>Every vault note has three data layers:</p>
+<ol>
+<li><strong>Frontmatter</strong> — structured, indexed, queryable (<code>tags</code>, <code>status</code>, <code>company</code>)</li>
+<li><strong>Sections</strong> — semi-structured (<code>## Timeline</code>, <code>## Tasks</code>)</li>
+<li><strong>Prose</strong> — unstructured, human-written, LLM-summarizable</li>
+</ol>
+<p>Apps query by tag via <code>vault_query()</code>, read sections on demand, and pass prose to LLM when understanding is needed.</p>
+<h2 id="self-awareness">Self-Awareness<a class="header-link" href="#self-awareness" title="Permanent link">&para;</a></h2>
+<p>EmptyOS has a built-in integrity audit that scores 13 dimensions: 9 design principles, the Six Verbs metabolic cycle, plus security, privacy, and scale. A growth agent runs daily, a root agent reviews weekly. The topology graph at <code>/topology</code> visualizes all 62 apps and their connections in real time.</p>
+    </div>
+  </article>
+</div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      Powered by <a href="https://github.com/anthropics/emptyos">EmptyOS</a>
+    </div>
+  </footer>
+  <script>
+  // Theme toggle
+  (function(){
+    try{var t=localStorage.getItem('site-theme');if(t==='alt-theme')document.body.classList.add('alt-theme');}catch(e){}
+  })();
+  function toggleTheme(){
+    document.body.classList.toggle('alt-theme');
+    try{localStorage.setItem('site-theme',document.body.classList.contains('alt-theme')?'alt-theme':'dark');}catch(e){}
+    var btn=document.querySelector('.theme-toggle');
+    btn.innerHTML=document.body.classList.contains('alt-theme')?'&#9788;':'&#9790;';
+  }
+  // Search
+  var _searchIndex=null;
+  function openSearch(){
+    document.getElementById('search-overlay').classList.add('open');
+    document.getElementById('search-input').focus();
+  }
+  function closeSearch(){
+    document.getElementById('search-overlay').classList.remove('open');
+  }
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
+    if(e.key==='Escape')closeSearch();
+  });
+  function doSearch(q){
+    if(!_searchIndex){
+      var searchUrl='search-index.json';
+      if(location.pathname.indexOf('/publish/api/')>=0)searchUrl='/publish/api/site-file?path=search-index.json';
+      fetch(searchUrl).then(function(r){return r.json();}).then(function(d){_searchIndex=d;doSearch(q);});
+      return;
+    }
+    var el=document.getElementById('search-results');
+    if(!q.trim()){el.innerHTML='';return;}
+    var lq=q.toLowerCase();
+    var hits=_searchIndex.filter(function(p){
+      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
+    }).slice(0,8);
+    el.innerHTML=hits.map(function(p){
+      var href=p.type==='page'?(''+p.slug+'.html'):(''+'posts/'+p.slug+'.html');
+      return '<a class="search-result" href="'+href+'">'
+        +'<div class="search-result-title">'+p.title+'</div>'
+        +'<div class="search-result-summary">'+p.date+' &middot; '+(p.summary||'').substring(0,100)+'</div></a>';
+    }).join('')||'<div style="padding:12px;color:var(--text-muted);font-size:0.85rem">No results</div>';
+  }
+  </script>
+</body>
+</html>

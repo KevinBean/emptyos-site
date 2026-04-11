@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Catalog — EmptyOS</title>
+  <meta name="description" content="All 62 apps organized by category — infrastructure, productivity, creative, voice, and system">
+  <meta property="og:title" content="App Catalog">
+  <meta property="og:description" content="All 62 apps organized by category — infrastructure, productivity, creative, voice, and system">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="site.css">
+  <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
+  
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="max-width:900px">
+      <a href="index.html" class="site-name">EmptyOS</a>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="apps.html">Apps</a>
+        <a href="plugins.html">Plugins</a>
+        <a href="tags.html">Tags</a>
+        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+      </nav>
+    </div>
+  </header>
+  <div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
+    <div class="search-box">
+      <input class="search-input" id="search-input" placeholder="Search posts..." oninput="doSearch(this.value)" autofocus>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+  <main class="container">
+    <div class="docs-layout">
+  <nav class="docs-sidebar">
+    <div class="sidebar-title">Documentation</div>
+    <ul>
+      <li><a href="getting-started.html">Getting Started</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="apps.html" class="active">Apps</a></li>
+      <li><a href="plugins.html">Plugins</a></li>
+
+    </ul>
+  </nav>
+  <article>
+    <h1 style="font-size:1.8rem;color:var(--text-heading);margin-bottom:20px;font-weight:700">App Catalog</h1>
+    <div class="article">
+      <h2 id="infrastructure">Infrastructure<a class="header-link" href="#infrastructure" title="Permanent link">&para;</a></h2>
+<p>Core building blocks that other apps rely on.</p>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>capture</strong></td>
+<td>Quick inbox append — text goes to vault instantly</td>
+</tr>
+<tr>
+<td><strong>note</strong></td>
+<td>Note CRUD with fuzzy matching</td>
+</tr>
+<tr>
+<td><strong>task</strong></td>
+<td>Task management with decay tiers, focus scoring, calendar view</td>
+</tr>
+<tr>
+<td><strong>link</strong></td>
+<td>Wikilinks, backlinks, orphan detection</td>
+</tr>
+<tr>
+<td><strong>tmpl</strong></td>
+<td>Template-based note creation</td>
+</tr>
+<tr>
+<td><strong>run</strong></td>
+<td>Shell command execution</td>
+</tr>
+<tr>
+<td><strong>git</strong></td>
+<td>Version control from the UI</td>
+</tr>
+</tbody>
+</table>
+<h2 id="productivity">Productivity<a class="header-link" href="#productivity" title="Permanent link">&para;</a></h2>
+<p>Daily drivers for personal knowledge management.</p>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>search</strong></td>
+<td>Vault search with AI-powered RAG and keyword expansion</td>
+</tr>
+<tr>
+<td><strong>journal</strong></td>
+<td>Mood tracking, daily entries, heatmap visualization</td>
+</tr>
+<tr>
+<td><strong>briefing</strong></td>
+<td>Morning frogs, schedule overview, task priorities</td>
+</tr>
+<tr>
+<td><strong>expense</strong></td>
+<td>Vault-backed expense tables with category breakdowns</td>
+</tr>
+<tr>
+<td><strong>contacts</strong></td>
+<td>People management from vault <code>@Person.md</code> files</td>
+</tr>
+<tr>
+<td><strong>projects</strong></td>
+<td>Project directories with task counts and structure compliance</td>
+</tr>
+<tr>
+<td><strong>assistant</strong></td>
+<td>Multi-session AI chat with vault context and 35 slash commands</td>
+</tr>
+<tr>
+<td><strong>focus</strong></td>
+<td>Pomodoro timer with AI task suggestions</td>
+</tr>
+<tr>
+<td><strong>tracker</strong></td>
+<td>Immigration, career, finance, and social tracking</td>
+</tr>
+<tr>
+<td><strong>review</strong></td>
+<td>Weekly reflection compiled from 3 apps</td>
+</tr>
+<tr>
+<td><strong>timeline</strong></td>
+<td>Events aggregated from projects and vault</td>
+</tr>
+<tr>
+<td><strong>nutrition</strong></td>
+<td>Meal logging with LLM calorie estimation</td>
+</tr>
+<tr>
+<td><strong>reader</strong></td>
+<td>Highlights, SM-2 flashcards, Kindle/URL import</td>
+</tr>
+<tr>
+<td><strong>items</strong></td>
+<td>Physical item inventory with AI smart-add and search</td>
+</tr>
+<tr>
+<td><strong>places</strong></td>
+<td>Location notes from vault</td>
+</tr>
+<tr>
+<td><strong>news-center</strong></td>
+<td>RSS/Atom aggregator with AI summaries</td>
+</tr>
+<tr>
+<td><strong>quotes</strong></td>
+<td>Quote of the day from vault collection</td>
+</tr>
+<tr>
+<td><strong>dictionary</strong></td>
+<td>LLM-powered word lookup</td>
+</tr>
+<tr>
+<td><strong>healing</strong></td>
+<td>Mood logging, trend analysis, AI insight</td>
+</tr>
+<tr>
+<td><strong>media</strong></td>
+<td>Books, movies, highlights, SRS review</td>
+</tr>
+<tr>
+<td><strong>divination</strong></td>
+<td>I Ching oracle</td>
+</tr>
+<tr>
+<td><strong>meditation</strong></td>
+<td>Stillness sessions with streak tracking</td>
+</tr>
+</tbody>
+</table>
+<h2 id="creative">Creative<a class="header-link" href="#creative" title="Permanent link">&para;</a></h2>
+<p>Tools for making things.</p>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>music-studio</strong></td>
+<td>Song production command center — library, lyrics, compose, visuals</td>
+</tr>
+<tr>
+<td><strong>studio</strong></td>
+<td>AI image generation with 8 style presets</td>
+</tr>
+<tr>
+<td><strong>gpts</strong></td>
+<td>Custom AI personas with knowledge files</td>
+</tr>
+<tr>
+<td><strong>publish</strong></td>
+<td>Turn vault notes into static websites (this site!)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="voice-language">Voice &amp; Language<a class="header-link" href="#voice-language" title="Permanent link">&para;</a></h2>
+<p>Speaking practice and audio tools.</p>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>english</strong></td>
+<td>Learning hub — 8 levels, event aggregation from voice apps</td>
+</tr>
+<tr>
+<td><strong>speaking</strong></td>
+<td>AI conversation partner with 5 scenarios</td>
+</tr>
+<tr>
+<td><strong>voice-review</strong></td>
+<td>Record, transcribe, get AI grammar analysis</td>
+</tr>
+<tr>
+<td><strong>shadowing</strong></td>
+<td>Listen-and-repeat with LCS scoring</td>
+</tr>
+<tr>
+<td><strong>tts</strong></td>
+<td>Text-to-speech</td>
+</tr>
+</tbody>
+</table>
+<h2 id="career">Career<a class="header-link" href="#career" title="Permanent link">&para;</a></h2>
+<p>Job hunting and professional tools.</p>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>jobs</strong></td>
+<td>Career command center — application pipeline, briefings, practice</td>
+</tr>
+<tr>
+<td><strong>github-connector</strong></td>
+<td>Sync GitHub issues and PRs into projects</td>
+</tr>
+</tbody>
+</table>
+<h2 id="system">System<a class="header-link" href="#system" title="Permanent link">&para;</a></h2>
+<p>Platform monitoring and configuration.</p>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>settings</strong></td>
+<td>Config and key-value store for all apps</td>
+</tr>
+<tr>
+<td><strong>vault-analytics</strong></td>
+<td>File distribution, PARA compliance stats</td>
+</tr>
+<tr>
+<td><strong>system-log</strong></td>
+<td>Live event feed</td>
+</tr>
+<tr>
+<td><strong>billing</strong></td>
+<td>LLM cost tracking with budget alerts</td>
+</tr>
+<tr>
+<td><strong>app-analytics</strong></td>
+<td>Usage statistics per app</td>
+</tr>
+<tr>
+<td><strong>app-gen</strong></td>
+<td>Generate new apps from a description</td>
+</tr>
+<tr>
+<td><strong>reactor</strong></td>
+<td>Event chain reactions — one action triggers many</td>
+</tr>
+<tr>
+<td><strong>model-bench</strong></td>
+<td>LLM comparison across providers</td>
+</tr>
+<tr>
+<td><strong>integrity</strong></td>
+<td>13-dimension self-audit dashboard</td>
+</tr>
+<tr>
+<td><strong>finance</strong></td>
+<td>Net worth tracking, retirement planning</td>
+</tr>
+<tr>
+<td><strong>hub</strong></td>
+<td>Dashboard with wellness, streaks, AI narrative</td>
+</tr>
+</tbody>
+</table>
+<h2 id="composition-apps">Composition Apps<a class="header-link" href="#composition-apps" title="Permanent link">&para;</a></h2>
+<p>Apps that combine data from multiple sources.</p>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>What It Does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>digest</strong></td>
+<td>Daily digest compiled from multiple apps</td>
+</tr>
+<tr>
+<td><strong>staff</strong></td>
+<td>24 AI agents with OBSERVE-DECIDE-ACT cycles</td>
+</tr>
+<tr>
+<td><strong>podcast</strong></td>
+<td>Generate AI podcasts from any topic or vault content</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-pattern">The Pattern<a class="header-link" href="#the-pattern" title="Permanent link">&para;</a></h2>
+<p>Every app follows the same structure:</p>
+<div class="highlight"><pre><span></span><code>apps/{id}/
+├── manifest.toml    # Declares id, capabilities, events, routes
+├── app.py           # Python class extending BaseApp
+├── __init__.py
+└── pages/           # HTML files for custom UI (optional)
+    └── index.html
+</code></pre></div>
+
+<p>Apps without <code>pages/</code> get an auto-generated UI. Apps with custom pages get hot-reloaded HTML — edit and refresh, no restart needed.</p>
+    </div>
+  </article>
+</div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      Powered by <a href="https://github.com/anthropics/emptyos">EmptyOS</a>
+    </div>
+  </footer>
+  <script>
+  // Theme toggle
+  (function(){
+    try{var t=localStorage.getItem('site-theme');if(t==='alt-theme')document.body.classList.add('alt-theme');}catch(e){}
+  })();
+  function toggleTheme(){
+    document.body.classList.toggle('alt-theme');
+    try{localStorage.setItem('site-theme',document.body.classList.contains('alt-theme')?'alt-theme':'dark');}catch(e){}
+    var btn=document.querySelector('.theme-toggle');
+    btn.innerHTML=document.body.classList.contains('alt-theme')?'&#9788;':'&#9790;';
+  }
+  // Search
+  var _searchIndex=null;
+  function openSearch(){
+    document.getElementById('search-overlay').classList.add('open');
+    document.getElementById('search-input').focus();
+  }
+  function closeSearch(){
+    document.getElementById('search-overlay').classList.remove('open');
+  }
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
+    if(e.key==='Escape')closeSearch();
+  });
+  function doSearch(q){
+    if(!_searchIndex){
+      var searchUrl='search-index.json';
+      if(location.pathname.indexOf('/publish/api/')>=0)searchUrl='/publish/api/site-file?path=search-index.json';
+      fetch(searchUrl).then(function(r){return r.json();}).then(function(d){_searchIndex=d;doSearch(q);});
+      return;
+    }
+    var el=document.getElementById('search-results');
+    if(!q.trim()){el.innerHTML='';return;}
+    var lq=q.toLowerCase();
+    var hits=_searchIndex.filter(function(p){
+      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
+    }).slice(0,8);
+    el.innerHTML=hits.map(function(p){
+      var href=p.type==='page'?(''+p.slug+'.html'):(''+'posts/'+p.slug+'.html');
+      return '<a class="search-result" href="'+href+'">'
+        +'<div class="search-result-title">'+p.title+'</div>'
+        +'<div class="search-result-summary">'+p.date+' &middot; '+(p.summary||'').substring(0,100)+'</div></a>';
+    }).join('')||'<div style="padding:12px;color:var(--text-muted);font-size:0.85rem">No results</div>';
+  }
+  </script>
+</body>
+</html>

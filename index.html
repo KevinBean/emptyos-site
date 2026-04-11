@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmptyOS — EmptyOS</title>
+  <meta name="description" content="A personal operating system built with AI — your tools, your data, your rules">
+  <meta property="og:title" content="EmptyOS">
+  <meta property="og:description" content="A personal operating system built with AI — your tools, your data, your rules">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="site.css">
+  <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
+  
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="max-width:900px">
+      <a href="index.html" class="site-name">EmptyOS</a>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="architecture.html">Architecture</a>
+        <a href="apps.html">Apps</a>
+        <a href="plugins.html">Plugins</a>
+        <a href="tags.html">Tags</a>
+        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+      </nav>
+    </div>
+  </header>
+  <div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
+    <div class="search-box">
+      <input class="search-input" id="search-input" placeholder="Search posts..." oninput="doSearch(this.value)" autofocus>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+  <main class="container">
+    <div class="landing-hero">
+  <h1>EmptyOS</h1>
+  <div class="tagline">A personal operating system that treats AI as a native capability. Your markdown vault is the hard drive. Apps are atoms. The value is in the connections.</div>
+  <div class="landing-cta"><a href="getting-started.html" class="cta-primary">Get Started</a>
+<a href="architecture.html" class="cta-secondary">Architecture</a>
+</div>
+</div>
+
+<div class="feature-grid">
+<div class="feature-card">
+  <h3>62 Apps, One Kernel</h3>
+  <div class="fc-body"><p>Capture, journal, search, expense tracking, project management, AI chat, music production, voice practice — all built as equal first-class apps sharing the same manifest format and lifecycle.</p></div>
+</div><div class="feature-card">
+  <h3>AI as a Capability, Not a Feature</h3>
+  <div class="fc-body"><p>Every app can think, read, write, and search through a unified capability system. Three LLM providers (local, cloud, human fallback) with automatic routing per app and domain.</p></div>
+</div><div class="feature-card">
+  <h3>Vault-Powered Storage</h3>
+  <div class="fc-body"><p>Your data lives in plain markdown files with YAML frontmatter — human-readable, version-controllable, and editable with any text editor. The vault is mounted externally and survives system reset.</p></div>
+</div><div class="feature-card">
+  <h3>Self-Evolving System</h3>
+  <div class="fc-body"><p>A growth agent observes system health daily. A root agent reviews architecture weekly. The integrity audit scores 13 dimensions. The system grows itself.</p></div>
+</div><div class="feature-card">
+  <h3>Plugin Architecture</h3>
+  <div class="fc-body"><p>Ollama for local LLM, ComfyUI for image generation, Telegram for mobile push, voice APIs for TTS/STT — plugins inject capabilities at startup and degrade gracefully when unavailable.</p></div>
+</div><div class="feature-card">
+  <h3>Full UI for Everything</h3>
+  <div class="fc-body"><p>Every app gets a web interface — hand-crafted or auto-generated. 10 custom UIs, shared theme system with 4 themes, keyboard shortcuts, real-time WebSocket updates, and a topology graph that IS the architecture.</p></div>
+</div>
+</div>
+
+
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      Powered by <a href="https://github.com/anthropics/emptyos">EmptyOS</a>
+    </div>
+  </footer>
+  <script>
+  // Theme toggle
+  (function(){
+    try{var t=localStorage.getItem('site-theme');if(t==='alt-theme')document.body.classList.add('alt-theme');}catch(e){}
+  })();
+  function toggleTheme(){
+    document.body.classList.toggle('alt-theme');
+    try{localStorage.setItem('site-theme',document.body.classList.contains('alt-theme')?'alt-theme':'dark');}catch(e){}
+    var btn=document.querySelector('.theme-toggle');
+    btn.innerHTML=document.body.classList.contains('alt-theme')?'&#9788;':'&#9790;';
+  }
+  // Search
+  var _searchIndex=null;
+  function openSearch(){
+    document.getElementById('search-overlay').classList.add('open');
+    document.getElementById('search-input').focus();
+  }
+  function closeSearch(){
+    document.getElementById('search-overlay').classList.remove('open');
+  }
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
+    if(e.key==='Escape')closeSearch();
+  });
+  function doSearch(q){
+    if(!_searchIndex){
+      var searchUrl='search-index.json';
+      if(location.pathname.indexOf('/publish/api/')>=0)searchUrl='/publish/api/site-file?path=search-index.json';
+      fetch(searchUrl).then(function(r){return r.json();}).then(function(d){_searchIndex=d;doSearch(q);});
+      return;
+    }
+    var el=document.getElementById('search-results');
+    if(!q.trim()){el.innerHTML='';return;}
+    var lq=q.toLowerCase();
+    var hits=_searchIndex.filter(function(p){
+      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
+    }).slice(0,8);
+    el.innerHTML=hits.map(function(p){
+      var href=p.type==='page'?(''+p.slug+'.html'):(''+'posts/'+p.slug+'.html');
+      return '<a class="search-result" href="'+href+'">'
+        +'<div class="search-result-title">'+p.title+'</div>'
+        +'<div class="search-result-summary">'+p.date+' &middot; '+(p.summary||'').substring(0,100)+'</div></a>';
+    }).join('')||'<div style="padding:12px;color:var(--text-muted);font-size:0.85rem">No results</div>';
+  }
+  </script>
+</body>
+</html>
