@@ -105,13 +105,17 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoratio
 .featured {
   background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent);
   border-radius: var(--radius-lg); padding: 24px; margin-bottom: 32px;
+  display: flex; gap: 24px; align-items: flex-start;
   transition: box-shadow 0.25s, transform 0.2s;
 }
 .featured:hover { box-shadow: 0 6px 24px color-mix(in srgb, var(--accent) 8%, transparent); transform: translateY(-1px); }
+.featured .featured-text { flex: 1; min-width: 0; }
 .featured .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
 .featured .title { font-size: 1.4rem; font-weight: 700; color: var(--text-heading); margin-bottom: 6px; letter-spacing: -0.01em; }
 .featured .summary { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.6; }
 .featured .meta { font-size: 0.8rem; color: var(--text-muted); }
+.featured .featured-cover { flex: 0 0 auto; width: 180px; height: auto; max-height: 180px; border-radius: 10px; margin: 0; }
+.post-card .card-cover { display: block; max-width: 100%; max-height: 140px; width: auto; height: auto; margin: 0 auto 10px; border-radius: 8px; }
 
 /* Post grid */
 .post-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-bottom: 32px; }
@@ -308,7 +312,8 @@ audio { width: 100%; margin: 12px 0; border-radius: var(--radius); }
   .docs-layout { grid-template-columns: 1fr; }
   .docs-sidebar { display: none; }
   .post-grid { grid-template-columns: 1fr; }
-  .featured { padding: 18px; }
+  .featured { padding: 18px; flex-direction: column; gap: 14px; }
+  .featured .featured-cover { width: 100%; max-height: 200px; }
   .author-card { flex-direction: column; text-align: center; }
 }
 @media (max-width: 600px) {
