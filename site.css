@@ -58,6 +58,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoratio
 }
 .site-footer a { color: var(--text-muted); }
 .site-footer a:hover { color: var(--accent); text-decoration: none; }
+.cross-site-links { display: block; margin-bottom: 8px; }
 
 /* Theme toggle */
 .theme-toggle {
