@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>(function(){try{if(navigator.doNotTrack==='1')return;var u="http://localhost:9000/web-analytics/api/collect",s="emptyos";var b={site:s,path:location.pathname,referrer:document.referrer||''};var blob=new Blob([JSON.stringify(b)],{type:'text/plain'});if(navigator.sendBeacon){navigator.sendBeacon(u,blob);}else{fetch(u,{method:'POST',body:JSON.stringify(b),keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){});}}catch(e){}})();</script>
 </head>
 <body>
   <header class="site-header">
@@ -23,6 +24,7 @@
         <a href="apps.html">Apps</a>
         <a href="plugins.html">Plugins</a>
         <a href="capabilities.html">Capabilities</a>
+        <a href="blog.html">Blog</a>
         <a href="tags.html">Tags</a>
         <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
         <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
@@ -51,14 +53,17 @@
   <article>
     <h1 style="font-size:1.8rem;color:var(--text-heading);margin-bottom:20px;font-weight:700">Getting Started</h1>
     <div class="article">
-      <h2 id="requirements">Requirements<a class="header-link" href="#requirements" title="Permanent link">&para;</a></h2>
+      <blockquote>
+<p>Want to look first? <strong><a href="https://demo.binbian.net/?token=bLN9bRP-wMfBiaqsfI4OHuu3tGHtGsaeGsLk-8v71N8">Open the live demo →</a></strong> — a public instance with a sample vault. The link includes a sign-in token; don't put real data in it.</p>
+</blockquote>
+<h2 id="requirements">Requirements<a class="header-link" href="#requirements" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Python 3.11+</li>
 <li>A markdown vault (any folder of <code>.md</code> files works)</li>
 <li>Optional: Ollama for local LLM, ComfyUI for image generation</li>
 </ul>
 <h2 id="installation">Installation<a class="header-link" href="#installation" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/anthropics/emptyos.git
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/KevinBean/emptyos.git
 <span class="nb">cd</span><span class="w"> </span>emptyos
 pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </code></pre></div>

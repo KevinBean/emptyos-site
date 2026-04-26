@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>(function(){try{if(navigator.doNotTrack==='1')return;var u="http://localhost:9000/web-analytics/api/collect",s="emptyos";var b={site:s,path:location.pathname,referrer:document.referrer||''};var blob=new Blob([JSON.stringify(b)],{type:'text/plain'});if(navigator.sendBeacon){navigator.sendBeacon(u,blob);}else{fetch(u,{method:'POST',body:JSON.stringify(b),keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){});}}catch(e){}})();</script>
 </head>
 <body>
   <header class="site-header">
@@ -23,6 +24,7 @@
         <a href="apps.html">Apps</a>
         <a href="plugins.html">Plugins</a>
         <a href="capabilities.html">Capabilities</a>
+        <a href="blog.html">Blog</a>
         <a href="tags.html">Tags</a>
         <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
         <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
@@ -87,7 +89,7 @@
 </table>
 <h2 id="three-layers">Three Layers<a class="header-link" href="#three-layers" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────┐
-│  Apps (70, all first-class)                  │
+│  Apps (44, all first-class)                  │
 │  capture  search  journal  expense  task     │
 │  assistant  music-studio  jobs  finance ...  │
 ├─────────────────────────────────────────────┤
@@ -214,7 +216,7 @@
 </ol>
 <p>Apps query by tag via <code>vault_query()</code>, read sections on demand, and pass prose to LLM when understanding is needed.</p>
 <h2 id="self-awareness">Self-Awareness<a class="header-link" href="#self-awareness" title="Permanent link">&para;</a></h2>
-<p>EmptyOS has a built-in integrity audit that scores 13 dimensions: 9 design principles, the Six Verbs metabolic cycle, plus security, privacy, and scale. A growth agent runs daily, a root agent reviews weekly. The topology graph at <code>/topology</code> visualizes all 70 apps and their connections in real time.</p>
+<p>EmptyOS has a built-in integrity audit that scores 13 dimensions: 9 design principles, the Six Verbs metabolic cycle, plus security, privacy, and scale. A growth agent runs daily, a root agent reviews weekly. The topology graph at <code>/topology</code> visualizes all 44 apps and their connections in real time.</p>
     </div>
   </article>
 </div>

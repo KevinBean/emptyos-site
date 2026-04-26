@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Catalog — EmptyOS</title>
-  <meta name="description" content="All 70 apps organized by category — infrastructure, productivity, creative, voice, and system">
+  <meta name="description" content="All 44 apps organized by category — infrastructure, productivity, creative, voice, and system">
   <meta property="og:title" content="App Catalog">
-  <meta property="og:description" content="All 70 apps organized by category — infrastructure, productivity, creative, voice, and system">
+  <meta property="og:description" content="All 44 apps organized by category — infrastructure, productivity, creative, voice, and system">
   <meta property="og:type" content="article">
   <link rel="stylesheet" href="site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>(function(){try{if(navigator.doNotTrack==='1')return;var u="http://localhost:9000/web-analytics/api/collect",s="emptyos";var b={site:s,path:location.pathname,referrer:document.referrer||''};var blob=new Blob([JSON.stringify(b)],{type:'text/plain'});if(navigator.sendBeacon){navigator.sendBeacon(u,blob);}else{fetch(u,{method:'POST',body:JSON.stringify(b),keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){});}}catch(e){}})();</script>
 </head>
 <body>
   <header class="site-header">
@@ -23,6 +24,7 @@
         <a href="apps.html">Apps</a>
         <a href="plugins.html">Plugins</a>
         <a href="capabilities.html">Capabilities</a>
+        <a href="blog.html">Blog</a>
         <a href="tags.html">Tags</a>
         <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
         <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
@@ -63,10 +65,6 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>capture</strong></td>
-<td>Fast inbox capture — append thoughts, ideas, anything</td>
-</tr>
-<tr>
 <td><strong>git</strong></td>
 <td>Version control for notes and projects</td>
 </tr>
@@ -77,6 +75,10 @@
 <tr>
 <td><strong>note</strong></td>
 <td>Create, read, list, and update notes</td>
+</tr>
+<tr>
+<td><strong>quick-action</strong></td>
+<td>One input, agent figures out what to do — capture, route, act</td>
 </tr>
 <tr>
 <td><strong>run</strong></td>
@@ -110,6 +112,10 @@
 <td>Word lookup, vault storage, SRS flashcards, quizzes</td>
 </tr>
 <tr>
+<td><strong>expense</strong></td>
+<td>Expense tracking — add, summarize, analyze spending</td>
+</tr>
+<tr>
 <td><strong>focus</strong></td>
 <td>Pomodoro focus timer with task suggestions</td>
 </tr>
@@ -130,84 +136,8 @@
 <td>Vault search with AI-powered answers</td>
 </tr>
 <tr>
-<td><strong>bookmarks</strong></td>
-<td>Read-later queue — save URLs, tag, archive, feed into vault</td>
-</tr>
-<tr>
-<td><strong>briefing</strong></td>
-<td>Daily command center — health score, weather, schedule, tasks, what-now</td>
-</tr>
-<tr>
-<td><strong>contacts</strong></td>
-<td>People from vault — @Person.md notes with relationship tracking</td>
-</tr>
-<tr>
-<td><strong>divination</strong></td>
-<td>I Ching coin divination with vault log</td>
-</tr>
-<tr>
-<td><strong>expense</strong></td>
-<td>Expense tracking — add, summarize, analyze spending</td>
-</tr>
-<tr>
-<td><strong>healing</strong></td>
-<td>Mood, dreams, sleep, workouts, habits — emotional and physical wellness</td>
-</tr>
-<tr>
-<td><strong>items</strong></td>
-<td>Physical item and asset tracking with AI smart-add/search</td>
-</tr>
-<tr>
-<td><strong>media</strong></td>
-<td>Books, movies, music — track what you consume, highlights with spaced repetition</td>
-</tr>
-<tr>
-<td><strong>meditation</strong></td>
-<td>Meditation session tracking</td>
-</tr>
-<tr>
-<td><strong>news-center</strong></td>
-<td>External news aggregator — RSS/Atom feeds, AI summaries, categories</td>
-</tr>
-<tr>
-<td><strong>nutrition</strong></td>
-<td>Meal tracking with AI macro estimation, progress rings, streaks</td>
-</tr>
-<tr>
-<td><strong>places</strong></td>
-<td>Location notes with geocoding</td>
-</tr>
-<tr>
-<td><strong>quickref</strong></td>
-<td>Tagged reference cards — accounts, addresses, IDs, anything</td>
-</tr>
-<tr>
-<td><strong>recipes</strong></td>
-<td>Recipe collection — ingredients, instructions, tags, meal planning</td>
-</tr>
-<tr>
-<td><strong>reflect</strong></td>
-<td>Meta-cognitive layer — the system observing itself, forming insights, modifying its own behavior</td>
-</tr>
-<tr>
-<td><strong>reminders</strong></td>
-<td>Time-triggered reminders with push notifications</td>
-</tr>
-<tr>
-<td><strong>review</strong></td>
-<td>Weekly review — reflect, plan, track progress</td>
-</tr>
-<tr>
-<td><strong>timeline</strong></td>
-<td>Life events timeline — milestones from vault and apps</td>
-</tr>
-<tr>
-<td><strong>tracker</strong></td>
-<td>Life goals tracker — immigration, career, finance, health milestones</td>
-</tr>
-<tr>
 <td><strong>weather</strong></td>
-<td>Daily weather context — current conditions, forecast, briefing integration</td>
+<td>Current conditions, forecast, history — OWM → Open-Meteo → wttr.in fallback chain</td>
 </tr>
 </tbody>
 </table>
@@ -221,63 +151,8 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>music-studio</strong></td>
-<td>Song production command center — library, lyrics, compose, visuals</td>
-</tr>
-<tr>
 <td><strong>publish</strong></td>
 <td>Publish vault notes as a static website — blog, projects, digital garden</td>
-</tr>
-<tr>
-<td><strong>3d-studio</strong></td>
-<td>Render 3D scenes and view results in browser — powered by Blender</td>
-</tr>
-<tr>
-<td><strong>fiction-engine</strong></td>
-<td>Fiction writing hub — project management, AI drafting, scene images</td>
-</tr>
-<tr>
-<td><strong>gpts</strong></td>
-<td>Custom AI personas with system prompts and knowledge</td>
-</tr>
-<tr>
-<td><strong>studio</strong></td>
-<td>AI image generation + ComfyUI workflow manager</td>
-</tr>
-</tbody>
-</table>
-<h2 id="voice-language">Voice &amp; Language<a class="header-link" href="#voice-language" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>App</th>
-<th>What It Does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>english</strong></td>
-<td>English practice dashboard — track sessions, vocabulary</td>
-</tr>
-<tr>
-<td><strong>lessons</strong></td>
-<td>AI-generated English lessons on any topic at 3 difficulty levels</td>
-</tr>
-<tr>
-<td><strong>shadowing</strong></td>
-<td>Pronunciation practice — listen and repeat</td>
-</tr>
-<tr>
-<td><strong>speaking</strong></td>
-<td>English conversation practice with AI partner</td>
-</tr>
-<tr>
-<td><strong>tts</strong></td>
-<td>Text-to-speech — type text, hear it spoken</td>
-</tr>
-<tr>
-<td><strong>voice-review</strong></td>
-<td>Record, transcribe, and analyze English speaking</td>
 </tr>
 </tbody>
 </table>
@@ -293,25 +168,6 @@
 <tr>
 <td><strong>github-connector</strong></td>
 <td>Sync GitHub issues and PRs into EmptyOS projects</td>
-</tr>
-<tr>
-<td><strong>jobs</strong></td>
-<td>Career command center — discover, apply, research, practice, learn, compare</td>
-</tr>
-</tbody>
-</table>
-<h2 id="engineering">Engineering<a class="header-link" href="#engineering" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>App</th>
-<th>What It Does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>cable</strong></td>
-<td>Cable engineering — pulling tension, HDD footprint, current rating, sheath voltage</td>
 </tr>
 </tbody>
 </table>
@@ -335,6 +191,10 @@
 <tr>
 <td><strong>billing</strong></td>
 <td>LLM + image cost tracking — real tokens, daily stats, budget alerts</td>
+</tr>
+<tr>
+<td><strong>hub</strong></td>
+<td>Generic home dashboard — aggregates panel contributions from any installed app. Zero hard dependencies</td>
 </tr>
 <tr>
 <td><strong>model-bench</strong></td>
@@ -364,45 +224,6 @@
 <td><strong>web-analytics</strong></td>
 <td>Privacy-first pageview analytics for published sites — no cookies, no fingerprinting, data stays local</td>
 </tr>
-<tr>
-<td><strong>ai-queue</strong></td>
-<td>AI task classification and Claude Code instruction queue. Classifies tasks as human-only vs AI-solvable, queues instructions for automated execution</td>
-</tr>
-<tr>
-<td><strong>finance</strong></td>
-<td>Financial command center — net worth, cash flow, attribution, retirement</td>
-</tr>
-<tr>
-<td><strong>hub</strong></td>
-<td>Life dashboard — health score, wellness, streaks, goals, weather, AI narrative</td>
-</tr>
-<tr>
-<td><strong>integrity</strong></td>
-<td>Live system integrity — scores EmptyOS against its own principles</td>
-</tr>
-</tbody>
-</table>
-<h2 id="composition">Composition<a class="header-link" href="#composition" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>App</th>
-<th>What It Does</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>digest</strong></td>
-<td>Automated daily summary — gathers from all apps, writes to vault</td>
-</tr>
-<tr>
-<td><strong>podcast</strong></td>
-<td>AI dual-host podcast generation</td>
-</tr>
-<tr>
-<td><strong>staff</strong></td>
-<td>22 autonomous AI agents — per-agent LLM, cron scheduling, shift pipeline</td>
-</tr>
 </tbody>
 </table>
 <h2 id="other">Other<a class="header-link" href="#other" title="Permanent link">&para;</a></h2>
@@ -419,16 +240,60 @@
 <td>Claude-Code-like coding agent — tool-use loop, permission-gated. Same brain in terminal (eos chat) and web (/agent/)</td>
 </tr>
 <tr>
-<td><strong>hello-world</strong></td>
-<td>Minimal reference app — canonical scaffold shape for new apps. Greets the user via the think capability</td>
+<td><strong>boards</strong></td>
+<td>Visual Work OS: Flexible boards with multiple views, automations, and offline export — backed by your Markdown Vault</td>
+</tr>
+<tr>
+<td><strong>calendar</strong></td>
+<td>A unified view of your schedule, aggregating tasks, journal entries, and external events</td>
+</tr>
+<tr>
+<td><strong>canvas</strong></td>
+<td>Infinite canvas for note cards, connections, pan/zoom, and vault-backed boards</td>
+</tr>
+<tr>
+<td><strong>geocode</strong></td>
+<td>Address ↔ lat/lon lookup via OpenStreetMap Nominatim. Free, cached, rate-limited to honour public-service usage policy</td>
+</tr>
+<tr>
+<td><strong>gesture</strong></td>
+<td>Real-time hand-gesture demo — browser camera + MediaPipe. Maps gestures to actions, emits gesture:detected. Camera bytes stay on the device</td>
+</tr>
+<tr>
+<td><strong>hands-free</strong></td>
+<td>Gesture-as-push-to-talk control mode. Open_Palm raises hand → voice command → gesture confirms. Routes through the command palette; no new app wiring needed. Camera + mic bytes stay on the device (Web Speech API uses Google servers for STT — noted in consent)</td>
+</tr>
+<tr>
+<td><strong>music-library</strong></td>
+<td>Browse, play, and edit songs in your vault. Generate AI lyrics. No GPU required — pure vault + LLM</td>
+</tr>
+<tr>
+<td><strong>people</strong></td>
+<td>Person directory — roster, capacity, workload, relationships, birthdays, interactions. Absorbs the former contacts app</td>
 </tr>
 <tr>
 <td><strong>providers</strong></td>
 <td>Manage think-capability providers — local LLMs, cloud APIs, Claude CLI. Edits the live capability chain without a restart</td>
 </tr>
 <tr>
+<td><strong>reports</strong></td>
+<td>Professional documents — PDR, CDR, TRR, proposals, specs, reports — with structured tables, signoff, and PDF + DOCX export</td>
+</tr>
+<tr>
+<td><strong>routing</strong></td>
+<td>Multi-stop route planning via OSRM. Free, cached, rate-limited. Pairs with geocode + EOS_MAP for trip planning from vault data</td>
+</tr>
+<tr>
 <td><strong>test-app</strong></td>
 <td>test app</td>
+</tr>
+<tr>
+<td><strong>tour</strong></td>
+<td>Walks the user through real EmptyOS surfaces. Apps contribute steps via <span class="wikilink-private">contributes.tour.step</span>; the tour orchestrator drives EOS.navigate + spotlight</td>
+</tr>
+<tr>
+<td><strong>voice-assistant</strong></td>
+<td>Conversational voice assistant using listen, think, and speak capabilities</td>
 </tr>
 </tbody>
 </table>

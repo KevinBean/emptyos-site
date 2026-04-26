@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>EmptyOS</title>
+  <subtitle>A personal operating system built with AI</subtitle>
+  <link href="https://eos.binbian.net/" rel="alternate"/>
+  <link href="https://eos.binbian.net/atom.xml" rel="self"/>
+  <updated>2026-04-27T00:00:00Z</updated>
+  <id>https://eos.binbian.net/</id>
+  <author><name></name></author>
+  <entry>
+    <title>The audit tools clean themselves up</title>
+    <link href="https://eos.binbian.net/posts/2026-04-27-the-audit-tools-clean-themselves-up.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-27-the-audit-tools-clean-themselves-up.html</id>
+    <updated>2026-04-27T00:00:00Z</updated>
+    <summary>We finally pointed our own tooling at our own design drift, ran the demo through a real visitor's eyes, and shipped fourteen public releases in a single sitting.</summary>
+  </entry>
+  <entry>
+    <title>Boards discovers what it really is</title>
+    <link href="https://eos.binbian.net/posts/2026-04-26-boards-discovers-what-it-really-is.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-26-boards-discovers-what-it-really-is.html</id>
+    <updated>2026-04-26T00:00:00Z</updated>
+    <summary>We started building a Visual Work OS. We ended up building a database substrate every other app gets to use for free.</summary>
+  </entry>
+  <entry>
+    <title>Splitting the big apps before they get bigger</title>
+    <link href="https://eos.binbian.net/posts/2026-04-26-splitting-the-big-apps.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-26-splitting-the-big-apps.html</id>
+    <updated>2026-04-26T00:00:00Z</updated>
+    <summary>Two apps had grown past the point of fitting comfortably in one file. We split them into orchestrator plus pure modules, kept the public API identical, and watched the test suite stay green.</summary>
+  </entry>
+  <entry>
+    <title>Voice gets a feedback loop</title>
+    <link href="https://eos.binbian.net/posts/2026-04-26-voice-gets-a-feedback-loop.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-26-voice-gets-a-feedback-loop.html</id>
+    <updated>2026-04-26T00:00:00Z</updated>
+    <summary>Aura learned to do things, then we noticed it couldn't tell you it had. Closing the loop without giving the assistant any new knowledge of any app.</summary>
+  </entry>
+  <entry>
+    <title>The cron got poisoned because writes weren't validated</title>
+    <link href="https://eos.binbian.net/posts/2026-04-25-the-cron-got-poisoned.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-25-the-cron-got-poisoned.html</id>
+    <updated>2026-04-25T00:00:00Z</updated>
+    <summary>Three scheduled agents had been silently skipping at boot for days. The bug was a free-prose field landing in a place that needed strict syntax.</summary>
+  </entry>
+  <entry>
+    <title>The daemon disappears</title>
+    <link href="https://eos.binbian.net/posts/2026-04-25-the-daemon-disappears.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-25-the-daemon-disappears.html</id>
+    <updated>2026-04-25T00:00:00Z</updated>
+    <summary>The OS finally stops haunting the desktop. Tray icon for everything; no more terminal window watching you work.</summary>
+  </entry>
+  <entry>
+    <title>When retrieval becomes the bottleneck</title>
+    <link href="https://eos.binbian.net/posts/2026-04-21-when-retrieval-becomes-the-bottleneck.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-21-when-retrieval-becomes-the-bottleneck.html</id>
+    <updated>2026-04-21T00:00:00Z</updated>
+    <summary>The assistant was inventing vault notes that didn't exist. The fix wasn't a better model — it was giving it eyes.</summary>
+  </entry>
+  <entry>
+    <title>When the agent stops flailing</title>
+    <link href="https://eos.binbian.net/posts/2026-04-20-when-the-agent-stops-flailing.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-20-when-the-agent-stops-flailing.html</id>
+    <updated>2026-04-20T00:00:00Z</updated>
+    <summary>Half a day of context, safety reflexes, and self-verification turns the coding agent from a bandaid factory into a tool we trust.</summary>
+  </entry>
+  <entry>
+    <title>Making the coding agent legible</title>
+    <link href="https://eos.binbian.net/posts/2026-04-19-making-the-coding-agent-legible.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-19-making-the-coding-agent-legible.html</id>
+    <updated>2026-04-19T00:00:00Z</updated>
+    <summary>The agent worked — but the web UI couldn't tell you which model was behind it, the command surface was invisible, and when a provider rejected a request the error said nothing useful. Fixing that revealed a silent wire-compat bug we'd been shipping for weeks.</summary>
+  </entry>
+  <entry>
+    <title>The bench earns its keep</title>
+    <link href="https://eos.binbian.net/posts/2026-04-19-the-bench-earns-its-keep.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-19-the-bench-earns-its-keep.html</id>
+    <updated>2026-04-19T00:00:00Z</updated>
+    <summary>We built the agent bench to grade providers. It turned out to be just as good at finding tool-side bugs the agent had been silently working around — and at proving that our fixes actually fix anything.</summary>
+  </entry>
+  <entry>
+    <title>One provider was hiding three</title>
+    <link href="https://eos.binbian.net/posts/2026-04-18-one-provider-was-hiding-three.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-18-one-provider-was-hiding-three.html</id>
+    <updated>2026-04-18T00:00:00Z</updated>
+    <summary>The dictionary had no sound. Chasing that revealed that the speak capability — the one supposedly guarding graceful fallback — was quietly pretending three engines were one.</summary>
+  </entry>
+  <entry>
+    <title>Ready to be run by anyone</title>
+    <link href="https://eos.binbian.net/posts/2026-04-18-ready-to-be-run-by-anyone.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-18-ready-to-be-run-by-anyone.html</id>
+    <updated>2026-04-18T00:00:00Z</updated>
+    <summary>Deployment modes, Docker, a cloud-consent gate, auth middleware, a demo vault, a devlog-publish pipeline — the day EmptyOS crossed from 'a personal system that's getting tidier' to 'something someone else could install and run.'</summary>
+  </entry>
+  <entry>
+    <title>The audit had a blind spot</title>
+    <link href="https://eos.binbian.net/posts/2026-04-18-the-audit-had-a-blind-spot.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-18-the-audit-had-a-blind-spot.html</id>
+    <updated>2026-04-18T00:00:00Z</updated>
+    <summary>The self-audit kept flagging 113 unheard events — but the audit itself was the component that was broken.</summary>
+  </entry>
+  <entry>
+    <title>The system gets a uniform</title>
+    <link href="https://eos.binbian.net/posts/2026-04-17-the-system-gets-a-uniform.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-17-the-system-gets-a-uniform.html</id>
+    <updated>2026-04-17T00:00:00Z</updated>
+    <summary>Entity cards, shared badges, settings panels everywhere, zero native dialogs, a reusable reference-test framework — the day the frontend learned to speak one language instead of twenty.</summary>
+  </entry>
+  <entry>
+    <title>Two kinds of looking</title>
+    <link href="https://eos.binbian.net/posts/2026-04-16-two-kinds-of-looking.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-16-two-kinds-of-looking.html</id>
+    <updated>2026-04-16T00:00:00Z</updated>
+    <summary>A split between personal usage analytics and public audience analytics, plus a generator that keeps the EmptyOS site honest against live system state — the day the system started seeing itself from two different outsides.</summary>
+  </entry>
+  <entry>
+    <title>Voice becomes native</title>
+    <link href="https://eos.binbian.net/posts/2026-04-15-voice-becomes-native.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-15-voice-becomes-native.html</id>
+    <updated>2026-04-15T00:00:00Z</updated>
+    <summary>Kokoro TTS as default, a cover-generation pipeline with a human gate, the assistant learning to remember, a structural-duplicate scanner — the day rich media and SDK discipline both tightened up.</summary>
+  </entry>
+  <entry>
+    <title>Giving the system a vocabulary</title>
+    <link href="https://eos.binbian.net/posts/2026-04-13-giving-the-system-a-vocabulary.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-13-giving-the-system-a-vocabulary.html</id>
+    <updated>2026-04-13T00:00:00Z</updated>
+    <summary>Six new skills, shared UI primitives, a dimensions SDK, a conversation shell — turning recurring patterns into named things the system can speak in.</summary>
+  </entry>
+  <entry>
+    <title>Making it ready for other people</title>
+    <link href="https://eos.binbian.net/posts/2026-04-12-making-it-ready-for-other-people.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-12-making-it-ready-for-other-people.html</id>
+    <updated>2026-04-12T00:00:00Z</updated>
+    <summary>A publish app, multi-site layouts, release tiers, public docs — the day EmptyOS stopped being a single-user tool and started being something that could be handed to someone else.</summary>
+  </entry>
+  <entry>
+    <title>The system starts watching itself</title>
+    <link href="https://eos.binbian.net/posts/2026-04-11-the-system-starts-watching-itself.html"/>
+    <id>https://eos.binbian.net/posts/2026-04-11-the-system-starts-watching-itself.html</id>
+    <updated>2026-04-11T00:00:00Z</updated>
+    <summary>Before today EmptyOS had health checks. By the end it had a consciousness model, 13 scoring dimensions, two weekly agents doing audits, and a dev-log pipeline that records what it is becoming.</summary>
+  </entry>
+</feed>

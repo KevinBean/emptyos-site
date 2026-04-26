@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <script>(function(){try{if(navigator.doNotTrack==='1')return;var u="http://localhost:9000/web-analytics/api/collect",s="emptyos";var b={site:s,path:location.pathname,referrer:document.referrer||''};var blob=new Blob([JSON.stringify(b)],{type:'text/plain'});if(navigator.sendBeacon){navigator.sendBeacon(u,blob);}else{fetch(u,{method:'POST',body:JSON.stringify(b),keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){});}}catch(e){}})();</script>
 </head>
 <body>
   <header class="site-header">
@@ -23,6 +24,7 @@
         <a href="apps.html">Apps</a>
         <a href="plugins.html">Plugins</a>
         <a href="capabilities.html">Capabilities</a>
+        <a href="blog.html">Blog</a>
         <a href="tags.html">Tags</a>
         <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
         <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
@@ -41,18 +43,24 @@
   <div class="tagline">A personal operating system that treats AI as a native capability. Your markdown vault is the hard drive. Apps are atoms. The value is in the connections.
 
 
+
+
+> The demo link includes a sign-in token so you can poke at the running system. It's a public sandbox with a sample vault — feel free to break things. Don't put real data in it.
+
 <!-- stats:start --></div>
-  <div class="landing-cta"><a href="getting-started.html" class="cta-primary">Get Started</a>
+  <div class="landing-cta"><a href="https://demo.binbian.net/?token=bLN9bRP-wMfBiaqsfI4OHuu3tGHtGsaeGsLk-8v71N8" class="cta-primary">Try the live demo →</a>
+<a href="https://github.com/KevinBean/emptyos" class="cta-secondary">View on GitHub →</a>
+<a href="getting-started.html" class="cta-secondary">Get Started</a>
 <a href="architecture.html" class="cta-secondary">Architecture</a>
 </div>
 </div>
 
 <div class="feature-grid">
 <div class="feature-card">
-  <h3>70 Apps, One Kernel</h3>
-  <div class="fc-body"><p>Capture, journal, search, expense tracking, project management, AI chat, music production, voice practice — all built as equal first-class apps sharing the same manifest format and lifecycle. 69 with custom UIs, 930 API endpoints, 11 plugins, 7 capabilities.</p>
-<p><strong>System integrity: 137/140 (98%)</strong> across 14 dimensions — self-audited by the integrity app. Score updates as the system is extended or refactored.</p>
-<p><em>Generated 2026-04-19 from live system state.</em></p>
+  <h3>44 Apps, One Kernel</h3>
+  <div class="fc-body"><p>Capture, journal, search, expense tracking, project management, AI chat, music production, voice practice — all built as equal first-class apps sharing the same manifest format and lifecycle. 42 with custom UIs, 1145 API endpoints, 13 plugins, 7 capabilities.</p>
+<p><strong>System integrity: 128/140 (91%)</strong> across 14 dimensions — self-audited by the integrity app. Score updates as the system is extended or refactored.</p>
+<p><em>Generated 2026-04-27 from live system state.</em></p>
 <!-- stats:end --></div>
 </div><div class="feature-card">
   <h3>AI as a Capability, Not a Feature</h3>
@@ -72,7 +80,32 @@
 </div>
 </div>
 
-
+<div class="blog-preview">
+  <div class="section-heading">Latest Updates</div>
+  <div class="post-grid">
+<a href="posts/2026-04-27-the-audit-tools-clean-themselves-up.html" class="post-card" style="text-decoration:none;display:block">
+  
+  <div class="card-title">The audit tools clean themselves up</div>
+  <div class="card-meta">2026-04-27 &middot; 5 min</div>
+  <div class="card-summary">We finally pointed our own tooling at our own design drift, ran the demo through a real visitor's eyes, and shipped fourteen public releases in a single sitting.</div>
+  <div class="card-tags"><span class="tag">devlog</span> <span class="tag">emptyos</span> <span class="tag">design-language</span> <span class="tag">release</span></div>
+</a>
+<a href="posts/2026-04-26-boards-discovers-what-it-really-is.html" class="post-card" style="text-decoration:none;display:block">
+  
+  <div class="card-title">Boards discovers what it really is</div>
+  <div class="card-meta">2026-04-26 &middot; 4 min</div>
+  <div class="card-summary">We started building a Visual Work OS. We ended up building a database substrate every other app gets to use for free.</div>
+  <div class="card-tags"><span class="tag">devlog</span> <span class="tag">emptyos</span> <span class="tag">architecture</span> <span class="tag">boards</span></div>
+</a>
+<a href="posts/2026-04-26-splitting-the-big-apps.html" class="post-card" style="text-decoration:none;display:block">
+  
+  <div class="card-title">Splitting the big apps before they get bigger</div>
+  <div class="card-meta">2026-04-26 &middot; 4 min</div>
+  <div class="card-summary">Two apps had grown past the point of fitting comfortably in one file. We split them into orchestrator plus pure modules, kept the public API identical, and watched the test suite stay green.</div>
+  <div class="card-tags"><span class="tag">devlog</span> <span class="tag">emptyos</span> <span class="tag">refactor</span> <span class="tag">sdk</span></div>
+</a>
+  </div>
+</div>
   </main>
   <footer class="site-footer">
     <div class="container">

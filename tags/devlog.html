@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tag: devlog — EmptyOS</title>
+  <meta name="description" content="Posts tagged devlog">
+  <meta property="og:title" content="Tag: devlog">
+  <meta property="og:description" content="Posts tagged devlog">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="../site.css">
+  <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="../atom.xml">
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <script>(function(){try{if(navigator.doNotTrack==='1')return;var u="http://localhost:9000/web-analytics/api/collect",s="emptyos";var b={site:s,path:location.pathname,referrer:document.referrer||''};var blob=new Blob([JSON.stringify(b)],{type:'text/plain'});if(navigator.sendBeacon){navigator.sendBeacon(u,blob);}else{fetch(u,{method:'POST',body:JSON.stringify(b),keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){});}}catch(e){}})();</script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container" style="max-width:900px">
+      <a href="../index.html" class="site-name">EmptyOS</a>
+      <nav class="site-nav">
+        <a href="../index.html">Home</a>
+        <a href="../getting-started.html">Getting Started</a>
+        <a href="../architecture.html">Architecture</a>
+        <a href="../apps.html">Apps</a>
+        <a href="../plugins.html">Plugins</a>
+        <a href="../capabilities.html">Capabilities</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../tags.html">Tags</a>
+        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+      </nav>
+    </div>
+  </header>
+  <div class="search-overlay" id="search-overlay" onclick="if(event.target===this)closeSearch()">
+    <div class="search-box">
+      <input class="search-input" id="search-input" placeholder="Search posts..." oninput="doSearch(this.value)" autofocus>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+  <main class="container">
+    <h1 style="font-size:1.4rem;color:var(--text-heading);margin-bottom:24px">
+  Posts tagged <span class="tag" style="font-size:0.9rem">devlog</span>
+</h1>
+<ul class="post-list">
+<li class="post-item">
+  <a href="posts/2026-04-27-the-audit-tools-clean-themselves-up.html" class="post-title">The audit tools clean themselves up</a>
+  <div class="post-meta">2026-04-27 </div>
+  <div class="post-summary">We finally pointed our own tooling at our own design drift, ran the demo through a real visitor's eyes, and shipped fourteen public releases in a single sitting.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-26-boards-discovers-what-it-really-is.html" class="post-title">Boards discovers what it really is</a>
+  <div class="post-meta">2026-04-26 </div>
+  <div class="post-summary">We started building a Visual Work OS. We ended up building a database substrate every other app gets to use for free.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-26-splitting-the-big-apps.html" class="post-title">Splitting the big apps before they get bigger</a>
+  <div class="post-meta">2026-04-26 </div>
+  <div class="post-summary">Two apps had grown past the point of fitting comfortably in one file. We split them into orchestrator plus pure modules, kept the public API identical, and watched the test suite stay green.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-26-voice-gets-a-feedback-loop.html" class="post-title">Voice gets a feedback loop</a>
+  <div class="post-meta">2026-04-26 </div>
+  <div class="post-summary">Aura learned to do things, then we noticed it couldn't tell you it had. Closing the loop without giving the assistant any new knowledge of any app.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-25-the-cron-got-poisoned.html" class="post-title">The cron got poisoned because writes weren't validated</a>
+  <div class="post-meta">2026-04-25 </div>
+  <div class="post-summary">Three scheduled agents had been silently skipping at boot for days. The bug was a free-prose field landing in a place that needed strict syntax.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-25-the-daemon-disappears.html" class="post-title">The daemon disappears</a>
+  <div class="post-meta">2026-04-25 </div>
+  <div class="post-summary">The OS finally stops haunting the desktop. Tray icon for everything; no more terminal window watching you work.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-21-when-retrieval-becomes-the-bottleneck.html" class="post-title">When retrieval becomes the bottleneck</a>
+  <div class="post-meta">2026-04-21 </div>
+  <div class="post-summary">The assistant was inventing vault notes that didn't exist. The fix wasn't a better model — it was giving it eyes.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-20-when-the-agent-stops-flailing.html" class="post-title">When the agent stops flailing</a>
+  <div class="post-meta">2026-04-20 </div>
+  <div class="post-summary">Half a day of context, safety reflexes, and self-verification turns the coding agent from a bandaid factory into a tool we trust.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-19-making-the-coding-agent-legible.html" class="post-title">Making the coding agent legible</a>
+  <div class="post-meta">2026-04-19 </div>
+  <div class="post-summary">The agent worked — but the web UI couldn't tell you which model was behind it, the command surface was invisible, and when a provider rejected a request the error said nothing useful. Fixing that revealed a silent wire-compat bug we'd been shipping for weeks.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-19-the-bench-earns-its-keep.html" class="post-title">The bench earns its keep</a>
+  <div class="post-meta">2026-04-19 </div>
+  <div class="post-summary">We built the agent bench to grade providers. It turned out to be just as good at finding tool-side bugs the agent had been silently working around — and at proving that our fixes actually fix anything.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-18-one-provider-was-hiding-three.html" class="post-title">One provider was hiding three</a>
+  <div class="post-meta">2026-04-18 </div>
+  <div class="post-summary">The dictionary had no sound. Chasing that revealed that the speak capability — the one supposedly guarding graceful fallback — was quietly pretending three engines were one.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-18-ready-to-be-run-by-anyone.html" class="post-title">Ready to be run by anyone</a>
+  <div class="post-meta">2026-04-18 </div>
+  <div class="post-summary">Deployment modes, Docker, a cloud-consent gate, auth middleware, a demo vault, a devlog-publish pipeline — the day EmptyOS crossed from 'a personal system that's getting tidier' to 'something someone else could install and run.'</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-18-the-audit-had-a-blind-spot.html" class="post-title">The audit had a blind spot</a>
+  <div class="post-meta">2026-04-18 </div>
+  <div class="post-summary">The self-audit kept flagging 113 unheard events — but the audit itself was the component that was broken.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-17-the-system-gets-a-uniform.html" class="post-title">The system gets a uniform</a>
+  <div class="post-meta">2026-04-17 </div>
+  <div class="post-summary">Entity cards, shared badges, settings panels everywhere, zero native dialogs, a reusable reference-test framework — the day the frontend learned to speak one language instead of twenty.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-16-two-kinds-of-looking.html" class="post-title">Two kinds of looking</a>
+  <div class="post-meta">2026-04-16 </div>
+  <div class="post-summary">A split between personal usage analytics and public audience analytics, plus a generator that keeps the EmptyOS site honest against live system state — the day the system started seeing itself from two different outsides.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-15-voice-becomes-native.html" class="post-title">Voice becomes native</a>
+  <div class="post-meta">2026-04-15 </div>
+  <div class="post-summary">Kokoro TTS as default, a cover-generation pipeline with a human gate, the assistant learning to remember, a structural-duplicate scanner — the day rich media and SDK discipline both tightened up.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-13-giving-the-system-a-vocabulary.html" class="post-title">Giving the system a vocabulary</a>
+  <div class="post-meta">2026-04-13 </div>
+  <div class="post-summary">Six new skills, shared UI primitives, a dimensions SDK, a conversation shell — turning recurring patterns into named things the system can speak in.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-12-making-it-ready-for-other-people.html" class="post-title">Making it ready for other people</a>
+  <div class="post-meta">2026-04-12 </div>
+  <div class="post-summary">A publish app, multi-site layouts, release tiers, public docs — the day EmptyOS stopped being a single-user tool and started being something that could be handed to someone else.</div>
+</li>
+<li class="post-item">
+  <a href="posts/2026-04-11-the-system-starts-watching-itself.html" class="post-title">The system starts watching itself</a>
+  <div class="post-meta">2026-04-11 </div>
+  <div class="post-summary">Before today EmptyOS had health checks. By the end it had a consciousness model, 13 scoring dimensions, two weekly agents doing audits, and a dev-log pipeline that records what it is becoming.</div>
+</li>
+</ul>
+<div style="margin-top:24px">
+  <a href="../tags.html">&larr; All tags</a>
+</div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <span class="cross-site-links"><a href="https://binbian.net">Bin Bian&#x27;s Site</a> &middot; <a href="https://portfolio.binbian.net">Engineering Portfolio</a></span>
+      Powered by <a href="https://github.com/KevinBean/emptyos-site">EmptyOS</a>
+    </div>
+  </footer>
+  <script>
+  // Theme toggle
+  (function(){
+    try{var t=localStorage.getItem('site-theme');if(t==='alt-theme')document.body.classList.add('alt-theme');}catch(e){}
+  })();
+  function toggleTheme(){
+    document.body.classList.toggle('alt-theme');
+    try{localStorage.setItem('site-theme',document.body.classList.contains('alt-theme')?'alt-theme':'dark');}catch(e){}
+    var btn=document.querySelector('.theme-toggle');
+    btn.innerHTML=document.body.classList.contains('alt-theme')?'&#9788;':'&#9790;';
+  }
+  // Search
+  var _searchIndex=null;
+  function openSearch(){
+    document.getElementById('search-overlay').classList.add('open');
+    document.getElementById('search-input').focus();
+  }
+  function closeSearch(){
+    document.getElementById('search-overlay').classList.remove('open');
+  }
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
+    if(e.key==='Escape')closeSearch();
+  });
+  function doSearch(q){
+    if(!_searchIndex){
+      var searchUrl='../search-index.json';
+      if(location.pathname.indexOf('/publish/api/')>=0)searchUrl='/publish/api/site-file?path=search-index.json';
+      fetch(searchUrl).then(function(r){return r.json();}).then(function(d){_searchIndex=d;doSearch(q);});
+      return;
+    }
+    var el=document.getElementById('search-results');
+    if(!q.trim()){el.innerHTML='';return;}
+    var lq=q.toLowerCase();
+    var hits=_searchIndex.filter(function(p){
+      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
+    }).slice(0,8);
+    el.innerHTML=hits.map(function(p){
+      var href=p.type==='page'?('../'+p.slug+'.html'):('../'+'posts/'+p.slug+'.html');
+      return '<a class="search-result" href="'+href+'">'
+        +'<div class="search-result-title">'+p.title+'</div>'
+        +'<div class="search-result-summary">'+p.date+' &middot; '+(p.summary||'').substring(0,100)+'</div></a>';
+    }).join('')||'<div style="padding:12px;color:var(--text-muted);font-size:0.85rem">No results</div>';
+  }
+  </script>
+</body>
+</html>
