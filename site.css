@@ -261,6 +261,14 @@ audio { width: 100%; margin: 12px 0; border-radius: var(--radius); }
 .landing-hero h1 { font-size: 2.6rem; font-weight: 700; color: var(--text-heading); margin-bottom: 14px; letter-spacing: -0.03em; line-height: 1.15; }
 .landing-hero .tagline { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 32px; max-width: 560px; margin-left: auto; margin-right: auto; line-height: 1.7; }
 .landing-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hero-note { max-width: 560px; margin: 28px auto 0; }
+.hero-note blockquote {
+  margin: 0; padding: 14px 18px; border-left: 3px solid var(--accent);
+  background: var(--bg-elev); border-radius: var(--radius);
+  color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; text-align: left;
+}
+.hero-note blockquote p { margin: 0; }
+.hero-note blockquote p + p { margin-top: 8px; }
 .landing-cta a {
   display: inline-block; padding: 12px 28px; border-radius: var(--radius);
   font-weight: 600; font-size: 0.95rem; text-decoration: none;
