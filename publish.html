@@ -19,14 +19,14 @@
       <a href="index.html" class="site-name">EmptyOS</a>
       <nav class="site-nav">
         <a href="index.html">Home</a>
-        <a href="publish.html">Publish</a>
-        <a href="learn.html">Learn</a>
-        <a href="boards.html">Boards</a>
         <a href="getting-started.html">Getting Started</a>
         <a href="architecture.html">Architecture</a>
         <a href="apps.html">Apps</a>
         <a href="plugins.html">Plugins</a>
         <a href="capabilities.html">Capabilities</a>
+        <a href="publish.html">Publish</a>
+        <a href="learn.html">Learn</a>
+        <a href="boards.html">Boards</a>
         <a href="blog.html">Blog</a>
         <a href="tags.html">Tags</a>
         <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
@@ -45,14 +45,14 @@
   <nav class="docs-sidebar">
     <div class="sidebar-title">Documentation</div>
     <ul>
-      <li><a href="publish.html" class="active">Publish</a></li>
-      <li><a href="learn.html">Learn</a></li>
-      <li><a href="boards.html">Boards</a></li>
       <li><a href="getting-started.html">Getting Started</a></li>
       <li><a href="architecture.html">Architecture</a></li>
       <li><a href="apps.html">Apps</a></li>
       <li><a href="plugins.html">Plugins</a></li>
       <li><a href="capabilities.html">Capabilities</a></li>
+      <li><a href="publish.html" class="active">Publish</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="boards.html">Boards</a></li>
 
     </ul>
   </nav>
@@ -61,7 +61,8 @@
     <div class="article">
       <h1 id="turn-your-notes-into-a-public-site">Turn your notes into a public site.<a class="header-link" href="#turn-your-notes-into-a-public-site" title="Permanent link">&para;</a></h1>
 <p>One folder of markdown becomes a domain with posts, projects, an about page, an atom feed, and full-text search. No CMS, no separate writing environment — the same notes you live in every day.</p>
-<p><img alt="A real personal site generated from a markdown vault" src="assets/showcase-publish-site.png" /></p>
+<p><img alt="" src="assets/showcase-publish-site.png" />
+<em>A real personal site generated from a markdown vault</em></p>
 <h2 id="how-it-works">How it works<a class="header-link" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <p>The <strong>publish</strong> app watches one folder in your vault — typically <code>Published/</code>. Any note with <code>publish: true</code> in its frontmatter becomes a page on the site. Three layouts ship built-in (landing, post, page); the rest is whatever frontmatter fields you want surfaced.</p>
 <p>A draft stays private until you flip the flag. A retraction is one edit away. The site is regenerated each time a watched note changes; the deploy step pushes the static output to GitHub Pages, Netlify, or any host that serves static files.</p>
