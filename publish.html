@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tags — EmptyOS</title>
-  <meta name="description" content="All tags">
-  <meta property="og:title" content="Tags">
-  <meta property="og:description" content="All tags">
+  <title>Publish — EmptyOS</title>
+  <meta name="description" content="Turn your notes into a public site — write in markdown, ship to a domain">
+  <meta property="og:title" content="Publish">
+  <meta property="og:description" content="Turn your notes into a public site — write in markdown, ship to a domain">
   <meta property="og:type" content="article">
   <link rel="stylesheet" href="site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
@@ -41,33 +41,45 @@
     </div>
   </div>
   <main class="container">
-    <h1 style="font-size:1.4rem;color:var(--text-heading);margin-bottom:24px">Tags</h1>
-<div style="display:flex;flex-wrap:wrap;gap:8px">
-<a href="tags/agent.html" class="tag" style="font-size:0.85rem;padding:4px 14px">agent (1)</a>
-<a href="tags/agents.html" class="tag" style="font-size:0.85rem;padding:4px 14px">agents (2)</a>
-<a href="tags/analytics.html" class="tag" style="font-size:0.85rem;padding:4px 14px">analytics (1)</a>
-<a href="tags/architecture.html" class="tag" style="font-size:0.85rem;padding:4px 14px">architecture (5)</a>
-<a href="tags/assistant.html" class="tag" style="font-size:0.85rem;padding:4px 14px">assistant (1)</a>
-<a href="tags/boards.html" class="tag" style="font-size:0.85rem;padding:4px 14px">boards (1)</a>
-<a href="tags/capabilities.html" class="tag" style="font-size:0.85rem;padding:4px 14px">capabilities (1)</a>
-<a href="tags/consolidation.html" class="tag" style="font-size:0.85rem;padding:4px 14px">consolidation (1)</a>
-<a href="tags/deployment.html" class="tag" style="font-size:0.85rem;padding:4px 14px">deployment (1)</a>
-<a href="tags/design-language.html" class="tag" style="font-size:0.85rem;padding:4px 14px">design-language (1)</a>
-<a href="tags/devlog.html" class="tag" style="font-size:0.85rem;padding:4px 14px">devlog (19)</a>
-<a href="tags/emptyos.html" class="tag" style="font-size:0.85rem;padding:4px 14px">emptyos (19)</a>
-<a href="tags/integrity.html" class="tag" style="font-size:0.85rem;padding:4px 14px">integrity (1)</a>
-<a href="tags/observability.html" class="tag" style="font-size:0.85rem;padding:4px 14px">observability (1)</a>
-<a href="tags/publishing.html" class="tag" style="font-size:0.85rem;padding:4px 14px">publishing (1)</a>
-<a href="tags/refactor.html" class="tag" style="font-size:0.85rem;padding:4px 14px">refactor (1)</a>
-<a href="tags/release.html" class="tag" style="font-size:0.85rem;padding:4px 14px">release (3)</a>
-<a href="tags/reliability.html" class="tag" style="font-size:0.85rem;padding:4px 14px">reliability (1)</a>
-<a href="tags/runtime.html" class="tag" style="font-size:0.85rem;padding:4px 14px">runtime (1)</a>
-<a href="tags/sdk.html" class="tag" style="font-size:0.85rem;padding:4px 14px">sdk (6)</a>
-<a href="tags/skills.html" class="tag" style="font-size:0.85rem;padding:4px 14px">skills (1)</a>
-<a href="tags/testing.html" class="tag" style="font-size:0.85rem;padding:4px 14px">testing (2)</a>
-<a href="tags/ui.html" class="tag" style="font-size:0.85rem;padding:4px 14px">ui (1)</a>
-<a href="tags/ux.html" class="tag" style="font-size:0.85rem;padding:4px 14px">ux (1)</a>
-<a href="tags/voice.html" class="tag" style="font-size:0.85rem;padding:4px 14px">voice (2)</a>
+    <div class="docs-layout">
+  <nav class="docs-sidebar">
+    <div class="sidebar-title">Documentation</div>
+    <ul>
+      <li><a href="publish.html" class="active">Publish</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="boards.html">Boards</a></li>
+      <li><a href="getting-started.html">Getting Started</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="apps.html">Apps</a></li>
+      <li><a href="plugins.html">Plugins</a></li>
+      <li><a href="capabilities.html">Capabilities</a></li>
+
+    </ul>
+  </nav>
+  <article>
+    <h1 style="font-size:1.8rem;color:var(--text-heading);margin-bottom:20px;font-weight:700">Publish</h1>
+    <div class="article">
+      <h1 id="turn-your-notes-into-a-public-site">Turn your notes into a public site.<a class="header-link" href="#turn-your-notes-into-a-public-site" title="Permanent link">&para;</a></h1>
+<p>One folder of markdown becomes a domain with posts, projects, an about page, an atom feed, and full-text search. No CMS, no separate writing environment — the same notes you live in every day.</p>
+<p><img alt="A real personal site generated from a markdown vault" src="showcase-publish-site.png" /></p>
+<h2 id="how-it-works">How it works<a class="header-link" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<p>The <strong>publish</strong> app watches one folder in your vault — typically <code>Published/</code>. Any note with <code>publish: true</code> in its frontmatter becomes a page on the site. Three layouts ship built-in (landing, post, page); the rest is whatever frontmatter fields you want surfaced.</p>
+<p>A draft stays private until you flip the flag. A retraction is one edit away. The site is regenerated each time a watched note changes; the deploy step pushes the static output to GitHub Pages, Netlify, or any host that serves static files.</p>
+<h2 id="whats-surfaced">What's surfaced<a class="header-link" href="#whats-surfaced" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Posts and projects</strong> indexed by frontmatter (date, tags, category)</li>
+<li><strong>Atom feed</strong> generated from the posts list</li>
+<li><strong>Full-text search</strong> baked into the static bundle — no server required</li>
+<li><strong>Custom themes</strong> — <code>soft-light</code>, <code>eos</code>, or your own CSS</li>
+<li><strong>Social cards</strong> auto-built from each post's summary</li>
+<li><strong>Optional chatbot</strong> that answers questions about the site from your published notes</li>
+</ul>
+<h2 id="what-you-keep">What you keep<a class="header-link" href="#what-you-keep" title="Permanent link">&para;</a></h2>
+<p>Your writing stays in plain markdown files on your computer. Switch to a different publisher tomorrow and the writing is still there, exactly as you wrote it. The site is the output of your notes, not the home of them.</p>
+<hr />
+<p><a href="https://demo.binbian.net/?token=bLN9bRP-wMfBiaqsfI4OHuu3tGHtGsaeGsLk-8v71N8">Try the live demo →</a> &nbsp; · &nbsp; <a href="getting-started.html">Get Started</a></p>
+    </div>
+  </article>
 </div>
   </main>
   <footer class="site-footer">

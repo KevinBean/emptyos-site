@@ -19,6 +19,9 @@
       <a href="index.html" class="site-name">EmptyOS</a>
       <nav class="site-nav">
         <a href="index.html">Home</a>
+        <a href="publish.html">Publish</a>
+        <a href="learn.html">Learn</a>
+        <a href="boards.html">Boards</a>
         <a href="getting-started.html">Getting Started</a>
         <a href="architecture.html">Architecture</a>
         <a href="apps.html">Apps</a>
@@ -42,6 +45,9 @@
   <nav class="docs-sidebar">
     <div class="sidebar-title">Documentation</div>
     <ul>
+      <li><a href="publish.html">Publish</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="boards.html">Boards</a></li>
       <li><a href="getting-started.html">Getting Started</a></li>
       <li><a href="architecture.html">Architecture</a></li>
       <li><a href="apps.html">Apps</a></li>
@@ -71,6 +77,11 @@
 </thead>
 <tbody>
 <tr>
+<td><strong>agent-runtime</strong></td>
+<td>Service</td>
+<td>Generic ephemeral CLI subprocess driver for agent-style tools (claude-cli, codex, gemini, etc.). Spawns a CLI per turn, drains stdout/stderr with line callbacks, supports periodic tick callbacks for live UI updates, kills on timeout. Lifted from dogfood-agent's run loop so any app needing 'spawn a coding-agent CLI for one turn' can share the same plumbing. No persistent daemon — each call is a one-shot subprocess</td>
+</tr>
+<tr>
 <td><strong>applio</strong></td>
 <td>Service</td>
 <td>AI voice conversion via Applio (port 6969)</td>
@@ -84,6 +95,11 @@
 <td><strong>comfyui</strong></td>
 <td>Enhancer (draw)</td>
 <td>GPU image generation via ComfyUI</td>
+</tr>
+<tr>
+<td><strong>dogfood-demo</strong></td>
+<td>Service</td>
+<td>Sidecar EmptyOS daemon on :9001 with a curated sample vault. Lets ppt embed slides, screenshots, and any other share-shaped surface render against demo content instead of the user's personal vault — without flipping the personal daemon's demo mode</td>
 </tr>
 <tr>
 <td><strong>edge-tts</strong></td>
@@ -114,6 +130,26 @@
 <td><strong>ollama</strong></td>
 <td>Enhancer (think)</td>
 <td>Local LLM inference via Ollama</td>
+</tr>
+<tr>
+<td><strong>openai-image</strong></td>
+<td>Service</td>
+<td>Cloud image-gen fallback via OpenAI gpt-image-1. Cost-bearing — opt-in per call by domain routing, not auto-selected for free local generations</td>
+</tr>
+<tr>
+<td><strong>playwright</strong></td>
+<td>Service</td>
+<td>Headless browser automation — provides the browse capability via Chromium</td>
+</tr>
+<tr>
+<td><strong>pronounce</strong></td>
+<td>Service</td>
+<td>Phoneme-level pronunciation scoring via a local wav2vec2 service</td>
+</tr>
+<tr>
+<td><strong>sandbox-pool</strong></td>
+<td>Service</td>
+<td>Supervises a small pool of throwaway EmptyOS daemons on :9002+ that Claude (and other operators) can lease, restart, and release through a daemon-owned API. The plugin spawns each python.exe and tracks its PID itself, so the auto-classifier doesn't need to allow raw Bash taskkill — kills go through POST /sandbox/api/lease/<id>/restart which knows which PID it owns. Mirrors plugins/dogfood-demo/ for subprocess shape but supervises N members instead of one</td>
 </tr>
 <tr>
 <td><strong>system-tray</strong></td>

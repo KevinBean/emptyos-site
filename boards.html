@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tags — EmptyOS</title>
-  <meta name="description" content="All tags">
-  <meta property="og:title" content="Tags">
-  <meta property="og:description" content="All tags">
+  <title>Boards — EmptyOS</title>
+  <meta name="description" content="See your life from any angle — kanban, table, gallery, calendar, timeline">
+  <meta property="og:title" content="Boards">
+  <meta property="og:description" content="See your life from any angle — kanban, table, gallery, calendar, timeline">
   <meta property="og:type" content="article">
   <link rel="stylesheet" href="site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
@@ -41,33 +41,42 @@
     </div>
   </div>
   <main class="container">
-    <h1 style="font-size:1.4rem;color:var(--text-heading);margin-bottom:24px">Tags</h1>
-<div style="display:flex;flex-wrap:wrap;gap:8px">
-<a href="tags/agent.html" class="tag" style="font-size:0.85rem;padding:4px 14px">agent (1)</a>
-<a href="tags/agents.html" class="tag" style="font-size:0.85rem;padding:4px 14px">agents (2)</a>
-<a href="tags/analytics.html" class="tag" style="font-size:0.85rem;padding:4px 14px">analytics (1)</a>
-<a href="tags/architecture.html" class="tag" style="font-size:0.85rem;padding:4px 14px">architecture (5)</a>
-<a href="tags/assistant.html" class="tag" style="font-size:0.85rem;padding:4px 14px">assistant (1)</a>
-<a href="tags/boards.html" class="tag" style="font-size:0.85rem;padding:4px 14px">boards (1)</a>
-<a href="tags/capabilities.html" class="tag" style="font-size:0.85rem;padding:4px 14px">capabilities (1)</a>
-<a href="tags/consolidation.html" class="tag" style="font-size:0.85rem;padding:4px 14px">consolidation (1)</a>
-<a href="tags/deployment.html" class="tag" style="font-size:0.85rem;padding:4px 14px">deployment (1)</a>
-<a href="tags/design-language.html" class="tag" style="font-size:0.85rem;padding:4px 14px">design-language (1)</a>
-<a href="tags/devlog.html" class="tag" style="font-size:0.85rem;padding:4px 14px">devlog (19)</a>
-<a href="tags/emptyos.html" class="tag" style="font-size:0.85rem;padding:4px 14px">emptyos (19)</a>
-<a href="tags/integrity.html" class="tag" style="font-size:0.85rem;padding:4px 14px">integrity (1)</a>
-<a href="tags/observability.html" class="tag" style="font-size:0.85rem;padding:4px 14px">observability (1)</a>
-<a href="tags/publishing.html" class="tag" style="font-size:0.85rem;padding:4px 14px">publishing (1)</a>
-<a href="tags/refactor.html" class="tag" style="font-size:0.85rem;padding:4px 14px">refactor (1)</a>
-<a href="tags/release.html" class="tag" style="font-size:0.85rem;padding:4px 14px">release (3)</a>
-<a href="tags/reliability.html" class="tag" style="font-size:0.85rem;padding:4px 14px">reliability (1)</a>
-<a href="tags/runtime.html" class="tag" style="font-size:0.85rem;padding:4px 14px">runtime (1)</a>
-<a href="tags/sdk.html" class="tag" style="font-size:0.85rem;padding:4px 14px">sdk (6)</a>
-<a href="tags/skills.html" class="tag" style="font-size:0.85rem;padding:4px 14px">skills (1)</a>
-<a href="tags/testing.html" class="tag" style="font-size:0.85rem;padding:4px 14px">testing (2)</a>
-<a href="tags/ui.html" class="tag" style="font-size:0.85rem;padding:4px 14px">ui (1)</a>
-<a href="tags/ux.html" class="tag" style="font-size:0.85rem;padding:4px 14px">ux (1)</a>
-<a href="tags/voice.html" class="tag" style="font-size:0.85rem;padding:4px 14px">voice (2)</a>
+    <div class="docs-layout">
+  <nav class="docs-sidebar">
+    <div class="sidebar-title">Documentation</div>
+    <ul>
+      <li><a href="publish.html">Publish</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="boards.html" class="active">Boards</a></li>
+      <li><a href="getting-started.html">Getting Started</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="apps.html">Apps</a></li>
+      <li><a href="plugins.html">Plugins</a></li>
+      <li><a href="capabilities.html">Capabilities</a></li>
+
+    </ul>
+  </nav>
+  <article>
+    <h1 style="font-size:1.8rem;color:var(--text-heading);margin-bottom:20px;font-weight:700">Boards</h1>
+    <div class="article">
+      <h1 id="see-your-life-from-any-angle">See your life from any angle.<a class="header-link" href="#see-your-life-from-any-angle" title="Permanent link">&para;</a></h1>
+<p>The same notes, rendered five different ways. Job applications as a kanban. Books as a cover grid. Reminders on a calendar. Projects as a timeline. Pick the shape that fits the question you're asking right now.</p>
+<p><img alt="A job-applications board grouped by status — each card is a markdown note in the vault" src="showcase-boards-kanban.png" /></p>
+<h2 id="a-view-layer-not-a-database">A view layer, not a database<a class="header-link" href="#a-view-layer-not-a-database" title="Permanent link">&para;</a></h2>
+<p>The <strong>boards</strong> app doesn't own your data — it just renders it. Your job applications are still markdown files. Your reading list is still markdown files. Boards reads the frontmatter, groups by whatever field you choose, and lets you drag a card across columns or edit a cell inline. The writes flow back to the source notes.</p>
+<p>That means: switch publishers, switch editors, walk away from boards entirely — your notes are unchanged.</p>
+<h2 id="sixteen-prebuilt-boards-twelve-apps-behind-them">Sixteen prebuilt boards, twelve apps behind them<a class="header-link" href="#sixteen-prebuilt-boards-twelve-apps-behind-them" title="Permanent link">&para;</a></h2>
+<p>Out of the box: jobs, books and media, recipes, reminders, projects, tasks, people, places, expenses, presentations, cable schedules, asset registers, team deliverables, an inspection queue. Each one is a thin preset over an app that already owns the data.</p>
+<h2 id="five-view-shapes">Five view shapes<a class="header-link" href="#five-view-shapes" title="Permanent link">&para;</a></h2>
+<p><img alt="Same notes, gallery layout — cover-grid for books and media" src="showcase-boards-gallery.png" /></p>
+<p><img alt="Same notes, calendar layout — events plotted by due date" src="showcase-boards-calendar.png" /></p>
+<p>Switch with one click. The default view is a sensible pick (kanban for status-shaped data, gallery for visual-shaped, table when you need to scan a lot), but every view is one tab away.</p>
+<h2 id="what-you-keep">What you keep<a class="header-link" href="#what-you-keep" title="Permanent link">&para;</a></h2>
+<p>Boards is the lens. Your markdown is the truth. Add a board with a few config lines; the columns are whatever frontmatter fields your notes already carry.</p>
+<hr />
+<p><a href="https://demo.binbian.net/?token=bLN9bRP-wMfBiaqsfI4OHuu3tGHtGsaeGsLk-8v71N8">Try the live demo →</a> &nbsp; · &nbsp; <a href="getting-started.html">Get Started</a></p>
+    </div>
+  </article>
 </div>
   </main>
   <footer class="site-footer">

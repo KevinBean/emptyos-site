@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tags — EmptyOS</title>
-  <meta name="description" content="All tags">
-  <meta property="og:title" content="Tags">
-  <meta property="og:description" content="All tags">
+  <title>Learn — EmptyOS</title>
+  <meta name="description" content="Turn your reading into a knowledge base — concepts, citations, and the connections between them">
+  <meta property="og:title" content="Learn">
+  <meta property="og:description" content="Turn your reading into a knowledge base — concepts, citations, and the connections between them">
   <meta property="og:type" content="article">
   <link rel="stylesheet" href="site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
@@ -41,33 +41,50 @@
     </div>
   </div>
   <main class="container">
-    <h1 style="font-size:1.4rem;color:var(--text-heading);margin-bottom:24px">Tags</h1>
-<div style="display:flex;flex-wrap:wrap;gap:8px">
-<a href="tags/agent.html" class="tag" style="font-size:0.85rem;padding:4px 14px">agent (1)</a>
-<a href="tags/agents.html" class="tag" style="font-size:0.85rem;padding:4px 14px">agents (2)</a>
-<a href="tags/analytics.html" class="tag" style="font-size:0.85rem;padding:4px 14px">analytics (1)</a>
-<a href="tags/architecture.html" class="tag" style="font-size:0.85rem;padding:4px 14px">architecture (5)</a>
-<a href="tags/assistant.html" class="tag" style="font-size:0.85rem;padding:4px 14px">assistant (1)</a>
-<a href="tags/boards.html" class="tag" style="font-size:0.85rem;padding:4px 14px">boards (1)</a>
-<a href="tags/capabilities.html" class="tag" style="font-size:0.85rem;padding:4px 14px">capabilities (1)</a>
-<a href="tags/consolidation.html" class="tag" style="font-size:0.85rem;padding:4px 14px">consolidation (1)</a>
-<a href="tags/deployment.html" class="tag" style="font-size:0.85rem;padding:4px 14px">deployment (1)</a>
-<a href="tags/design-language.html" class="tag" style="font-size:0.85rem;padding:4px 14px">design-language (1)</a>
-<a href="tags/devlog.html" class="tag" style="font-size:0.85rem;padding:4px 14px">devlog (19)</a>
-<a href="tags/emptyos.html" class="tag" style="font-size:0.85rem;padding:4px 14px">emptyos (19)</a>
-<a href="tags/integrity.html" class="tag" style="font-size:0.85rem;padding:4px 14px">integrity (1)</a>
-<a href="tags/observability.html" class="tag" style="font-size:0.85rem;padding:4px 14px">observability (1)</a>
-<a href="tags/publishing.html" class="tag" style="font-size:0.85rem;padding:4px 14px">publishing (1)</a>
-<a href="tags/refactor.html" class="tag" style="font-size:0.85rem;padding:4px 14px">refactor (1)</a>
-<a href="tags/release.html" class="tag" style="font-size:0.85rem;padding:4px 14px">release (3)</a>
-<a href="tags/reliability.html" class="tag" style="font-size:0.85rem;padding:4px 14px">reliability (1)</a>
-<a href="tags/runtime.html" class="tag" style="font-size:0.85rem;padding:4px 14px">runtime (1)</a>
-<a href="tags/sdk.html" class="tag" style="font-size:0.85rem;padding:4px 14px">sdk (6)</a>
-<a href="tags/skills.html" class="tag" style="font-size:0.85rem;padding:4px 14px">skills (1)</a>
-<a href="tags/testing.html" class="tag" style="font-size:0.85rem;padding:4px 14px">testing (2)</a>
-<a href="tags/ui.html" class="tag" style="font-size:0.85rem;padding:4px 14px">ui (1)</a>
-<a href="tags/ux.html" class="tag" style="font-size:0.85rem;padding:4px 14px">ux (1)</a>
-<a href="tags/voice.html" class="tag" style="font-size:0.85rem;padding:4px 14px">voice (2)</a>
+    <div class="docs-layout">
+  <nav class="docs-sidebar">
+    <div class="sidebar-title">Documentation</div>
+    <ul>
+      <li><a href="publish.html">Publish</a></li>
+      <li><a href="learn.html" class="active">Learn</a></li>
+      <li><a href="boards.html">Boards</a></li>
+      <li><a href="getting-started.html">Getting Started</a></li>
+      <li><a href="architecture.html">Architecture</a></li>
+      <li><a href="apps.html">Apps</a></li>
+      <li><a href="plugins.html">Plugins</a></li>
+      <li><a href="capabilities.html">Capabilities</a></li>
+
+    </ul>
+  </nav>
+  <article>
+    <h1 style="font-size:1.8rem;color:var(--text-heading);margin-bottom:20px;font-weight:700">Learn</h1>
+    <div class="article">
+      <h1 id="turn-your-reading-into-a-knowledge-base">Turn your reading into a knowledge base.<a class="header-link" href="#turn-your-reading-into-a-knowledge-base" title="Permanent link">&para;</a></h1>
+<p>A concept you read once, you can lose. A concept linked to its source, the formula that implements it, and every case that cites it — that one stays.</p>
+<p><img alt="A concept note with its source citations, related concepts, and the formulas that implement it" src="showcase-learn-kb.png" /></p>
+<h2 id="eight-kinds-of-note">Eight kinds of note<a class="header-link" href="#eight-kinds-of-note" title="Permanent link">&para;</a></h2>
+<p>The <strong>kb</strong> app sorts knowledge by shape, not by folder. Every note has a <code>kind</code>:</p>
+<ul>
+<li><strong>concept</strong> — what a thing <em>is</em>, explained in your own words</li>
+<li><strong>reference</strong> — a whole source you cite (a standard, a textbook, a paper)</li>
+<li><strong>clause</strong> — the verbatim text of one section, with <code>standard</code>, <code>edition</code>, <code>clause</code> fields</li>
+<li><strong>formula</strong> — an implementable spec, anchored to the code path that runs it</li>
+<li><strong>case</strong> — a worked example with published numbers, to verify formulas against</li>
+<li><strong>lesson</strong> — practical / hard-won knowledge</li>
+<li><strong>doc</strong> — a composition outline that pulls paragraphs from other notes</li>
+<li><strong>moc</strong> — a map of content, navigating a topic</li>
+</ul>
+<h2 id="citations-that-resolve">Citations that resolve<a class="header-link" href="#citations-that-resolve" title="Permanent link">&para;</a></h2>
+<p>Mention a standard inline — <code>"IEC 60287-1-1 §4.3.1"</code> — and the kb app parses it, finds the matching <code>clause</code> note, and turns it into a clickable link. Every clause shows which concepts cite it; every concept shows which formulas implement it; every formula shows which cases verify it.</p>
+<p>You're not building a wiki. You're building a graph that reads back to its sources.</p>
+<h2 id="spaced-repetition-built-in">Spaced repetition, built in<a class="header-link" href="#spaced-repetition-built-in" title="Permanent link">&para;</a></h2>
+<p>Promote any note to a flashcard with one click. The scheduler — SM-2, the same algorithm SuperMemo and Anki use — drips reviews back to you on the days you'd start to forget. Your notes literally remind you what you wrote.</p>
+<h2 id="what-you-keep">What you keep<a class="header-link" href="#what-you-keep" title="Permanent link">&para;</a></h2>
+<p>Plain markdown with frontmatter. Open it in any editor. The graph lives in the <em>content</em> of your notes, not in a separate database.</p>
+<hr />
+<p><a href="https://demo.binbian.net/?token=bLN9bRP-wMfBiaqsfI4OHuu3tGHtGsaeGsLk-8v71N8">Try the live demo →</a> &nbsp; · &nbsp; <a href="getting-started.html">Get Started</a></p>
+    </div>
+  </article>
 </div>
   </main>
   <footer class="site-footer">

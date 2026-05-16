@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Catalog — EmptyOS</title>
-  <meta name="description" content="All 44 apps organized by category — infrastructure, productivity, creative, voice, and system">
+  <meta name="description" content="All 76 apps organized by category — infrastructure, productivity, creative, voice, and system">
   <meta property="og:title" content="App Catalog">
-  <meta property="og:description" content="All 44 apps organized by category — infrastructure, productivity, creative, voice, and system">
+  <meta property="og:description" content="All 76 apps organized by category — infrastructure, productivity, creative, voice, and system">
   <meta property="og:type" content="article">
   <link rel="stylesheet" href="site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
@@ -19,6 +19,9 @@
       <a href="index.html" class="site-name">EmptyOS</a>
       <nav class="site-nav">
         <a href="index.html">Home</a>
+        <a href="publish.html">Publish</a>
+        <a href="learn.html">Learn</a>
+        <a href="boards.html">Boards</a>
         <a href="getting-started.html">Getting Started</a>
         <a href="architecture.html">Architecture</a>
         <a href="apps.html">Apps</a>
@@ -42,6 +45,9 @@
   <nav class="docs-sidebar">
     <div class="sidebar-title">Documentation</div>
     <ul>
+      <li><a href="publish.html">Publish</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="boards.html">Boards</a></li>
       <li><a href="getting-started.html">Getting Started</a></li>
       <li><a href="architecture.html">Architecture</a></li>
       <li><a href="apps.html" class="active">Apps</a></li>
@@ -130,6 +136,10 @@
 <tr>
 <td><strong>quotes</strong></td>
 <td>A simple quote of the day app that picks a random inspirational quote and shows it. Store quotes in app data</td>
+</tr>
+<tr>
+<td><strong>reader</strong></td>
+<td>Read books with AI scene visualization, concept map, and dictionary lookup</td>
 </tr>
 <tr>
 <td><strong>search</strong></td>
@@ -236,12 +246,20 @@
 </thead>
 <tbody>
 <tr>
+<td><strong>actions</strong></td>
+<td>Run named templates over selected vault items. Plain or LLM-backed; workflows chain multiple actions</td>
+</tr>
+<tr>
 <td><strong>agent</strong></td>
 <td>Claude-Code-like coding agent — tool-use loop, permission-gated. Same brain in terminal (eos chat) and web (/agent/)</td>
 </tr>
 <tr>
 <td><strong>boards</strong></td>
 <td>Visual Work OS: Flexible boards with multiple views, automations, and offline export — backed by your Markdown Vault</td>
+</tr>
+<tr>
+<td><strong>cables</strong></td>
+<td>Network/reticulation projects — schedules, batch IEC 60287 ampacity across many cables, topology. Use the <code>cable</code> (singular) app for one-off rating / pulling / sheath calculators</td>
 </tr>
 <tr>
 <td><strong>calendar</strong></td>
@@ -252,6 +270,42 @@
 <td>Infinite canvas for note cards, connections, pan/zoom, and vault-backed boards</td>
 </tr>
 <tr>
+<td><strong>code</strong></td>
+<td>Code-IDE-shaped web frontend over apps/agent. File tree + preview + diff viewer + terminal pane + chat. NOT a new backend — pure frontend reusing agent's session model, tool loop, and consent manager</td>
+</tr>
+<tr>
+<td><strong>company</strong></td>
+<td>One Org primitive covering real teams, virtual sims, target employers, and mixed. Members can be humans (linked to apps/people/) or AI personas. Scenarios (critique / workshop / interview) operate on the AI members of any org</td>
+</tr>
+<tr>
+<td><strong>dogfood-agent</strong></td>
+<td>Spawn claude-cli as a persona to use EmptyOS like a real human, surface friction + behavior signal. Operator manual: docs/DOGFOOD-AGENT.md</td>
+</tr>
+<tr>
+<td><strong>earthing</strong></td>
+<td>Substation grounding-grid analysis — Wenner soil-resistivity test (RESAP) interpretation, IEEE Std 80 grid resistance (Sverak / Schwarz two-term, plate-bound feasibility), tolerable touch / step potentials per §8 Dalziel, mesh + step potentials per §16, IEEE 80 §15 D_f / C_p / S_f decomposition, ENA EG-0 / IEC 60479 probabilistic risk assessment with ALARP banding, 2D top-down conductor geometry editor with rectangle template, per-project design scenarios with side-by-side comparison, and a what-if parameter sweep that ranks cheapest passing designs across mesh density × rod count × burial depth</td>
+</tr>
+<tr>
+<td><strong>explore</strong></td>
+<td>Visual exploration browser — click anywhere to dive deeper. Flipbook-style, but DOM-native</td>
+</tr>
+<tr>
+<td><strong>feature-pipeline</strong></td>
+<td>Drive a feature-brief through research → design → impl → dogfood → release. Each stage is a skill invoked as a focused claude-cli; reasoning between stages decides advance / retry / skip; the final publish step always lands in the room review gate</td>
+</tr>
+<tr>
+<td><strong>fix-agent</strong></td>
+<td>Consume dogfood-agent's fix-prompt queue: spawn claude-cli in an isolated git worktree, branch-per-fix, leave merge to a human</td>
+</tr>
+<tr>
+<td><strong>forge</strong></td>
+<td>Scaffold and track native apps. EmptyOS as a workbench for projects whose code lives outside the daemon</td>
+</tr>
+<tr>
+<td><strong>geo-cad</strong></td>
+<td>Georeferenced drawings on a tile basemap. Other apps drop in features (lines, polygons, points) carrying attributes and get a Leaflet-Geoman editor + GeoJSON storage. DXF/SHP/KML/GeoPackage interchange via the optional gdal plugin</td>
+</tr>
+<tr>
 <td><strong>geocode</strong></td>
 <td>Address ↔ lat/lon lookup via OpenStreetMap Nominatim. Free, cached, rate-limited to honour public-service usage policy</td>
 </tr>
@@ -260,32 +314,108 @@
 <td>Real-time hand-gesture demo — browser camera + MediaPipe. Maps gestures to actions, emits gesture:detected. Camera bytes stay on the device</td>
 </tr>
 <tr>
+<td><strong>grill</strong></td>
+<td>Recipe-driven Socratic elicitation — surfaces the manifest knobs that bite later, writes a structured spec note before code exists</td>
+</tr>
+<tr>
+<td><strong>guideline</strong></td>
+<td>Organize prescriptive guidelines (rules, principles, conventions) by category</td>
+</tr>
+<tr>
+<td><strong>haitao</strong></td>
+<td>Cross-border shopping tracker — orders, forwarder packages, AI-suggested reconciliation</td>
+</tr>
+<tr>
 <td><strong>hands-free</strong></td>
 <td>Gesture-as-push-to-talk control mode. Open_Palm raises hand → voice command → gesture confirms. Routes through the command palette; no new app wiring needed. Camera + mic bytes stay on the device (Web Speech API uses Google servers for STT — noted in consent)</td>
+</tr>
+<tr>
+<td><strong>improv</strong></td>
+<td>Practice improvisational performance with an AI scene partner. Yes-and dialogue, genre swap, emotional pivot, status games, monologue prompts. Logs sessions to vault for review</td>
+</tr>
+<tr>
+<td><strong>interference</strong></td>
+<td>EMF / EMI studies. Phase A: 3D Biot-Savart B-field + image-method E-field around overhead lines and buried cables. Profile + grid analysis. Companion to apps/lines, apps/cables</td>
+</tr>
+<tr>
+<td><strong>kb</strong></td>
+<td>Domain-general knowledge base — concepts, formulas, standards, cases, lessons</td>
+</tr>
+<tr>
+<td><strong>lightning</strong></td>
+<td>Lightning protection (IEC 62305 / NFPA 780). Phase 1: 2D rolling-sphere shielding analysis along a profile. SESShield-3D-class visible-win deliverable; 3D heightfield analysis is Phase 2</td>
 </tr>
 <tr>
 <td><strong>music-library</strong></td>
 <td>Browse, play, and edit songs in your vault. Generate AI lyrics. No GPU required — pure vault + LLM</td>
 </tr>
 <tr>
+<td><strong>pattern-harvester</strong></td>
+<td>Detect duplicated code patterns across apps, score by frequency × complexity × template-bias, surface SDK extraction candidates</td>
+</tr>
+<tr>
 <td><strong>people</strong></td>
 <td>Person directory — roster, capacity, workload, relationships, birthdays, interactions. Absorbs the former contacts app</td>
+</tr>
+<tr>
+<td><strong>ppt</strong></td>
+<td>Markdown-driven decks. One vault note per deck — present in fullscreen, export to standalone HTML</td>
 </tr>
 <tr>
 <td><strong>providers</strong></td>
 <td>Manage think-capability providers — local LLMs, cloud APIs, Claude CLI. Edits the live capability chain without a restart</td>
 </tr>
 <tr>
+<td><strong>radio</strong></td>
+<td>Continuous mixed-source stream — music, podcasts, devlog, DJ chatter</td>
+</tr>
+<tr>
+<td><strong>repo</strong></td>
+<td>Read/edit/exec on the EmptyOS codebase, exposed as rooms verbs (chat-shape, [DO:]-gated). Parallel to apps/agent's bundled tools, which run inside the agent loop instead</td>
+</tr>
+<tr>
 <td><strong>reports</strong></td>
 <td>Professional documents — PDR, CDR, TRR, proposals, specs, reports — with structured tables, signoff, and PDF + DOCX export</td>
+</tr>
+<tr>
+<td><strong>rooms</strong></td>
+<td>Conversation rooms — single-agent (1:1) and multi-participant. Each room has a system prompt, optional knowledge files, and persistent history. The shared substrate where the user, named agents, and (in v2) CLI participants meet. Renamed from <code>gpts</code> 2026-05-09; existing per-agent histories migrate losslessly to 1:1 rooms</td>
 </tr>
 <tr>
 <td><strong>routing</strong></td>
 <td>Multi-stop route planning via OSRM. Free, cached, rate-limited. Pairs with geocode + EOS_MAP for trip planning from vault data</td>
 </tr>
 <tr>
+<td><strong>sandbox</strong></td>
+<td>HTTP API + status page for the sandbox-pool plugin: small pool of throwaway EmptyOS daemons on :9002+ that operators (Claude, /loop jobs, test scaffolds) lease, restart, and release. Routes a kill/restart through a daemon-owned endpoint instead of raw Bash taskkill, which the auto-classifier won't authorise</td>
+</tr>
+<tr>
+<td><strong>scroll</strong></td>
+<td>Vertical AI-generated short-clip feed driven by user-curated personas</td>
+</tr>
+<tr>
+<td><strong>sim</strong></td>
+<td>Native EMTP-class power-systems simulator. Runs netlists via the sim engine, persists runs in the vault. Other apps consume via the engine directly; this app is the run viewer + standalone-run UI</td>
+</tr>
+<tr>
+<td><strong>skill</strong></td>
+<td>Skill registry for rooms agents — system-prompt overlays + verb allowlists invoked by /<slash>. Parallel to apps/agent/skills.py which serves the agent loop</td>
+</tr>
+<tr>
+<td><strong>soil</strong></td>
+<td>Multi-layer soil resistivity inversion from Wenner sounding measurements. Paste a measurement table, pick a layer count, and get a converged ρ/h model with per-point fit, reflection coefficients, and Jacobian-SVD diagnostics that flag over-parameterised fits. Forward kernel validated against an independent industry reference case to within 0.1% RMS</td>
+</tr>
+<tr>
+<td><strong>store</strong></td>
+<td>Browse, install, and uninstall apps / plugins / skills. Restart-required toggle UI over the local catalog — every manifest in the repo shows up here, install state is per-user</td>
+</tr>
+<tr>
 <td><strong>test-app</strong></td>
 <td>test app</td>
+</tr>
+<tr>
+<td><strong>tiers</strong></td>
+<td>View and edit release tier membership for apps + plugins</td>
 </tr>
 <tr>
 <td><strong>tour</strong></td>
@@ -294,6 +424,10 @@
 <tr>
 <td><strong>voice-assistant</strong></td>
 <td>Conversational voice assistant using listen, think, and speak capabilities</td>
+</tr>
+<tr>
+<td><strong>welcome</strong></td>
+<td>Public-facing landing page for an EmptyOS deployment — directs visitors to the publicly reachable surfaces (radio, etc.)</td>
 </tr>
 </tbody>
 </table>
