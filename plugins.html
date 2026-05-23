@@ -92,9 +92,19 @@
 <td>3D modeling, rendering, and animation via Blender</td>
 </tr>
 <tr>
+<td><strong>cadquery</strong></td>
+<td>Service</td>
+<td>Articulated 3D object compile + URDF export via CadQuery, run inside a user-home Python 3.12 venv</td>
+</tr>
+<tr>
 <td><strong>comfyui</strong></td>
 <td>Enhancer (draw)</td>
 <td>GPU image generation via ComfyUI</td>
+</tr>
+<tr>
+<td><strong>command-launcher</strong></td>
+<td>Service</td>
+<td>Spawns a borderless Chrome/Edge app-mode window pointing at the command palette when the global hotkey fires</td>
 </tr>
 <tr>
 <td><strong>dogfood-demo</strong></td>
@@ -107,9 +117,19 @@
 <td>Free in-process TTS via Microsoft Edge voices (edge-tts pip package)</td>
 </tr>
 <tr>
+<td><strong>email-smtp</strong></td>
+<td>Service</td>
+<td>Injects an SMTP provider into the <code>send</code> capability — outbound email via your own mail server</td>
+</tr>
+<tr>
 <td><strong>global-hotkey</strong></td>
 <td>Service</td>
 <td>Listens for global OS keyboard shortcuts and emits them to the EventBus</td>
+</tr>
+<tr>
+<td><strong>headroom</strong></td>
+<td>Service</td>
+<td>Context compression middleware — shrinks <code>think</code> capability payloads before they reach cloud providers, using Headroom's three deterministic compressors (JSON SmartCrusher, AST CodeCompressor, ModernBERT-distilled Kompress-small for prose). Runs on CPU (~13ms via ONNX). Lazy-loaded — boot is unchanged when not installed</td>
 </tr>
 <tr>
 <td><strong>health</strong></td>
@@ -231,7 +251,7 @@
   </main>
   <footer class="site-footer">
     <div class="container">
-      <span class="cross-site-links"><a href="https://binbian.net">Bin Bian&#x27;s Site</a> &middot; <a href="https://portfolio.binbian.net">Engineering Portfolio</a></span>
+      <span class="cross-site-links"><a href="https://binbian.net">Bin Bian&#x27;s Site</a> &middot; <a href="https://portfolio.binbian.net">Engineering Portfolio</a> &middot; <a href="https://plekto.dev">Plekto</a></span>
       Powered by <a href="https://github.com/KevinBean/emptyos-site">EmptyOS</a>
     </div>
   </footer>

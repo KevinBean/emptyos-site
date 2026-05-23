@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>App Catalog — EmptyOS</title>
-  <meta name="description" content="All 76 apps organized by category — infrastructure, productivity, creative, voice, and system">
+  <meta name="description" content="All 82 apps organized by category — infrastructure, productivity, creative, voice, and system">
   <meta property="og:title" content="App Catalog">
-  <meta property="og:description" content="All 76 apps organized by category — infrastructure, productivity, creative, voice, and system">
+  <meta property="og:description" content="All 82 apps organized by category — infrastructure, productivity, creative, voice, and system">
   <meta property="og:type" content="article">
   <link rel="stylesheet" href="site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
@@ -254,12 +254,24 @@
 <td>Claude-Code-like coding agent — tool-use loop, permission-gated. Same brain in terminal (eos chat) and web (/agent/)</td>
 </tr>
 <tr>
+<td><strong>app-builder</strong></td>
+<td>Consume app-spec notes: spawn claude-cli in an isolated git worktree to scaffold a new EmptyOS app per the spec, leave merge to a human</td>
+</tr>
+<tr>
+<td><strong>architecture-map</strong></td>
+<td>Generate, archive, and browse narrative architecture maps of this EmptyOS repo via CodeBoarding. Long-running LLM analyses get a dedicated surface — kick them off with a scope picker, watch progress live, cancel mid-run, diff against past generations</td>
+</tr>
+<tr>
 <td><strong>boards</strong></td>
 <td>Visual Work OS: Flexible boards with multiple views, automations, and offline export — backed by your Markdown Vault</td>
 </tr>
 <tr>
+<td><strong>bookme</strong></td>
+<td>Share your availability and let people book meetings — a self-hosted scheduling page</td>
+</tr>
+<tr>
 <td><strong>cables</strong></td>
-<td>Network/reticulation projects — schedules, batch IEC 60287 ampacity across many cables, topology. Use the <code>cable</code> (singular) app for one-off rating / pulling / sheath calculators</td>
+<td>Network/reticulation projects — schedules, batch IEC 60287 ampacity across many cables, topology. Use the <code>cable-rating</code> app for single-cable detailed analysis (em_engine layered IEC 60287 / 3D FEM / CYMCAP parse)</td>
 </tr>
 <tr>
 <td><strong>calendar</strong></td>
@@ -278,16 +290,16 @@
 <td>One Org primitive covering real teams, virtual sims, target employers, and mixed. Members can be humans (linked to apps/people/) or AI personas. Scenarios (critique / workshop / interview) operate on the AI members of any org</td>
 </tr>
 <tr>
+<td><strong>dharma-log</strong></td>
+<td>Personal Buddhist study log — capture studied material, log confusions, turn them into your own wisdom through contemplative AI dialogue</td>
+</tr>
+<tr>
 <td><strong>dogfood-agent</strong></td>
 <td>Spawn claude-cli as a persona to use EmptyOS like a real human, surface friction + behavior signal. Operator manual: docs/DOGFOOD-AGENT.md</td>
 </tr>
 <tr>
 <td><strong>earthing</strong></td>
 <td>Substation grounding-grid analysis — Wenner soil-resistivity test (RESAP) interpretation, IEEE Std 80 grid resistance (Sverak / Schwarz two-term, plate-bound feasibility), tolerable touch / step potentials per §8 Dalziel, mesh + step potentials per §16, IEEE 80 §15 D_f / C_p / S_f decomposition, ENA EG-0 / IEC 60479 probabilistic risk assessment with ALARP banding, 2D top-down conductor geometry editor with rectangle template, per-project design scenarios with side-by-side comparison, and a what-if parameter sweep that ranks cheapest passing designs across mesh density × rod count × burial depth</td>
-</tr>
-<tr>
-<td><strong>explore</strong></td>
-<td>Visual exploration browser — click anywhere to dive deeper. Flipbook-style, but DOM-native</td>
 </tr>
 <tr>
 <td><strong>feature-pipeline</strong></td>
@@ -320,10 +332,6 @@
 <tr>
 <td><strong>guideline</strong></td>
 <td>Organize prescriptive guidelines (rules, principles, conventions) by category</td>
-</tr>
-<tr>
-<td><strong>haitao</strong></td>
-<td>Cross-border shopping tracker — orders, forwarder packages, AI-suggested reconciliation</td>
 </tr>
 <tr>
 <td><strong>hands-free</strong></td>
@@ -422,12 +430,28 @@
 <td>Walks the user through real EmptyOS surfaces. Apps contribute steps via <span class="wikilink-private">contributes.tour.step</span>; the tour orchestrator drives EOS.navigate + spotlight</td>
 </tr>
 <tr>
+<td><strong>trace-miner</strong></td>
+<td>Ambient syslog miner — groups recurring errors into prioritized, evidence-backed issues and feeds the fix-agent loop</td>
+</tr>
+<tr>
+<td><strong>vault-graph</strong></td>
+<td>Force-directed graph of vault notes, links, and references</td>
+</tr>
+<tr>
+<td><strong>video-digest</strong></td>
+<td>Queue YouTube URLs and turn them into vault Web-Clip digests with AI-distilled summaries</td>
+</tr>
+<tr>
 <td><strong>voice-assistant</strong></td>
 <td>Conversational voice assistant using listen, think, and speak capabilities</td>
 </tr>
 <tr>
 <td><strong>welcome</strong></td>
 <td>Public-facing landing page for an EmptyOS deployment — directs visitors to the publicly reachable surfaces (radio, etc.)</td>
+</tr>
+<tr>
+<td><strong>writing-editor</strong></td>
+<td>Workplace writing editor — paste a draft, pick audience + tone, get a revised version with per-edit rationale</td>
 </tr>
 </tbody>
 </table>
@@ -448,7 +472,7 @@
   </main>
   <footer class="site-footer">
     <div class="container">
-      <span class="cross-site-links"><a href="https://binbian.net">Bin Bian&#x27;s Site</a> &middot; <a href="https://portfolio.binbian.net">Engineering Portfolio</a></span>
+      <span class="cross-site-links"><a href="https://binbian.net">Bin Bian&#x27;s Site</a> &middot; <a href="https://portfolio.binbian.net">Engineering Portfolio</a> &middot; <a href="https://plekto.dev">Plekto</a></span>
       Powered by <a href="https://github.com/KevinBean/emptyos-site">EmptyOS</a>
     </div>
   </footer>
