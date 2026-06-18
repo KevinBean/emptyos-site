@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EmptyOS — Architecture Panorama</title>
+<meta name="description" content="EmptyOS architecture panorama — a mind companion. Kernel, 16 capabilities, the vault substrate, and the living loops that evolve it.">
+<style>
+  :root{
+    --bg0:#05070c; --bg1:#0a0f1a; --bg2:#0d1320;
+    --ink:#e8edf6; --ink-dim:#aab4c6; --ink-faint:#6f7c93;
+    --gold:#e9c45a; --gold-soft:#f3d98a;
+    --cyan:#46d6e4; --cyan-dim:#2f9fb0;
+    --line:rgba(140,160,200,.12);
+    --card:rgba(255,255,255,.025);
+    --card-edge:rgba(150,170,210,.14);
+    --glow:rgba(70,214,228,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg0);color:var(--ink);
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,"Helvetica Neue",
+      "PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  .mono{font-family:"SFMono-Regular",ui-monospace,"Cascadia Code","Consolas",monospace}
+
+  .poster{max-width:1080px;margin:0 auto;
+    background:
+      radial-gradient(1200px 600px at 50% -8%, rgba(70,214,228,.07), transparent 60%),
+      radial-gradient(900px 500px at 50% 105%, rgba(233,196,90,.05), transparent 60%),
+      linear-gradient(180deg,var(--bg1),var(--bg0) 40%,var(--bg2));
+    padding:64px 56px 48px;position:relative;overflow:hidden;
+    border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  .poster::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:linear-gradient(rgba(120,150,200,.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(120,150,200,.04) 1px,transparent 1px);
+    background-size:44px 44px;mask-image:linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent)}
+
+  /* ---- masthead ---- */
+  .eyebrow{text-align:center;letter-spacing:.62em;font-size:12px;font-weight:600;
+    color:var(--cyan);text-transform:uppercase;
+    border:1px solid var(--card-edge);border-radius:4px;
+    display:inline-block;padding:9px 22px 9px 28px;
+    position:relative;left:50%;transform:translateX(-50%);
+    background:rgba(70,214,228,.04)}
+  .title{text-align:center;margin:30px 0 6px;font-weight:800;
+    font-size:74px;line-height:1;letter-spacing:.04em;
+    background:linear-gradient(180deg,var(--gold-soft),var(--gold) 55%,#bd9a36);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 6px 26px rgba(233,196,90,.18))}
+  .subtitle{text-align:center;color:var(--ink-dim);font-size:18px;letter-spacing:.18em;font-weight:400}
+  .subtitle b{color:var(--ink)}
+  .statbar{text-align:center;margin-top:18px;color:var(--ink-faint);
+    font-size:12.5px;letter-spacing:.22em;text-transform:uppercase}
+  .statbar b{color:var(--cyan-dim)}
+
+  /* ---- section heading ---- */
+  .sec{margin-top:54px}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+  .sec-dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);
+    box-shadow:0 0 0 4px rgba(70,214,228,.12),0 0 18px var(--cyan)}
+  .sec-tri{color:var(--cyan-dim);font-size:13px}
+  .sec-title{font-size:21px;font-weight:700;letter-spacing:.06em;color:var(--ink)}
+  .sec-rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+
+  /* ---- two cards ---- */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .card{background:var(--card);border:1px solid var(--card-edge);border-radius:14px;
+    padding:26px 26px 22px;position:relative;
+    box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 24px 50px -36px rgba(0,0,0,.8)}
+  .card h3{font-size:19px;font-weight:700;color:var(--gold-soft);margin-bottom:18px;letter-spacing:.02em}
+  .card h3 .zh{color:var(--ink-dim);font-weight:500;font-size:15px;margin-left:6px}
+  .card ul{list-style:none}
+  .card li{position:relative;padding:8px 0 8px 18px;font-size:14px;line-height:1.5;
+    color:var(--ink-dim);border-bottom:1px solid rgba(140,160,200,.06)}
+  .card li:last-child{border-bottom:0}
+  .card li::before{content:"";position:absolute;left:0;top:15px;width:5px;height:5px;
+    border-radius:50%;background:var(--cyan-dim)}
+  .card li b{color:var(--ink);font-weight:600}
+
+  /* ---- bridge ---- */
+  .bridge{margin:30px auto 0;width:max-content;color:var(--ink-faint);
+    font-size:12.5px;letter-spacing:.34em;text-transform:uppercase;
+    border:1px solid var(--line);border-radius:30px;padding:9px 26px;
+    background:rgba(255,255,255,.015)}
+  .bridge b{color:var(--gold)}
+
+  /* ---- capability tiles ---- */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .tile{background:var(--card);border:1px solid var(--card-edge);border-radius:12px;
+    padding:18px 14px 15px;text-align:center;position:relative;transition:none}
+  .tile .ic{font-size:24px;line-height:1;display:block;margin-bottom:9px;
+    filter:drop-shadow(0 2px 10px var(--glow))}
+  .tile .nm{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:.02em}
+  .tile .pv{font-size:10.5px;color:var(--ink-faint);margin-top:5px;line-height:1.35;letter-spacing:.01em}
+  .chain{margin-top:16px;border:1px dashed rgba(233,196,90,.28);border-radius:10px;
+    padding:13px 20px;text-align:center;color:var(--ink-dim);font-size:13px;letter-spacing:.02em;
+    background:rgba(233,196,90,.03)}
+  .chain b{color:var(--gold-soft)}
+  .chain .mono{color:var(--cyan)}
+
+  /* ---- runtime / loops ---- */
+  .modes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:30px}
+  .mode{background:var(--card);border:1px solid var(--card-edge);border-radius:12px;padding:20px}
+  .mode .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan-dim);font-weight:600}
+  .mode .nm{font-size:18px;font-weight:700;color:var(--ink);margin:6px 0 8px}
+  .mode .ds{font-size:13px;color:var(--ink-dim);line-height:1.5}
+  .mode .nm .mono{font-size:13px;color:var(--gold-soft);font-weight:500}
+
+  .loops{position:relative;padding-top:8px}
+  .loopline{position:absolute;top:24px;left:6%;right:6%;height:1px;
+    background:linear-gradient(90deg,transparent,var(--cyan-dim),var(--gold),transparent);opacity:.5}
+  .loop-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;position:relative}
+  .loop{text-align:center;padding-top:36px;position:relative}
+  .loop::before{content:"";position:absolute;top:19px;left:50%;transform:translateX(-50%);
+    width:11px;height:11px;border-radius:50%;background:var(--gold);
+    box-shadow:0 0 0 4px rgba(233,196,90,.12),0 0 16px var(--gold)}
+  .loop .k{font-size:13px;font-weight:700;color:var(--gold-soft);letter-spacing:.14em;text-transform:uppercase}
+  .loop .v{font-size:12.5px;color:var(--ink-dim);margin-top:7px;line-height:1.5}
+  .loop .v b{color:var(--ink)}
+
+  /* ---- footer ---- */
+  .foot{margin-top:54px;display:flex;justify-content:center;gap:18px}
+  .badge{display:flex;align-items:center;gap:13px;border:1px solid var(--card-edge);
+    border-radius:12px;padding:13px 22px;background:rgba(255,255,255,.02)}
+  .badge .sig{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;
+    font-weight:800;font-size:16px;color:var(--bg0)}
+  .badge.a .sig{background:linear-gradient(135deg,var(--gold-soft),var(--gold))}
+  .badge.b .sig{background:transparent;border:1.5px solid var(--cyan);color:var(--cyan);border-radius:50%;font-size:10px;letter-spacing:.04em}
+  .badge .bt{font-weight:700;color:var(--ink);font-size:14px;letter-spacing:.02em}
+  .badge .bs{color:var(--ink-faint);font-size:11.5px;margin-top:2px;letter-spacing:.06em}
+  .stamp{text-align:center;margin-top:22px;color:var(--ink-faint);font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+
+  @media (max-width:760px){
+    .poster{padding:40px 22px}
+    .title{font-size:46px}
+    .grid2,.tiles,.modes,.loop-row{grid-template-columns:1fr 1fr}
+    .eyebrow{letter-spacing:.34em;font-size:10px}
+  }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- ============ MASTHEAD ============ -->
+  <span class="eyebrow">System Architecture · Panorama</span>
+  <h1 class="title">EmptyOS</h1>
+  <p class="subtitle">Mind Companion · 架构全景图 · <b>think and create with you, not for you</b></p>
+  <p class="statbar"><b>121</b>&nbsp;apps&nbsp;&nbsp;·&nbsp;&nbsp;<b>16</b>&nbsp;capabilities&nbsp;&nbsp;·&nbsp;&nbsp;<b>27</b>&nbsp;plugins&nbsp;&nbsp;·&nbsp;&nbsp;<b>1</b>&nbsp;external&nbsp;vault</p>
+
+  <!-- ============ 1 · CORE ============ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-dot"></span><span class="sec-tri">▸</span>
+      <span class="sec-title">Core Logic &amp; Knowledge Substrate&nbsp;&nbsp;核心逻辑与知识底座</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Kernel &amp; Decision Model<span class="zh">内核与决策模型</span></h3>
+        <ul>
+          <li><b>North star</b> — the human owns judgment; the system owns reversible execution</li>
+          <li><b>Reversible / internal</b> → auto-runs, with audit + one-click undo</li>
+          <li><b>Irreversible / external / billing</b> → human-gated: propose · preview · confirm</li>
+          <li><b>Autopilot grants</b> — explicit trust, per-actor · per-verb · per-scope</li>
+          <li><b>Event bus over imports</b> — one action ripples across the vault</li>
+          <li><b>Eight-consciousness model</b> · 缘起性空 reasoning lens</li>
+          <li><b>16 capabilities</b> with free-first provider chains</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Knowledge Substrate<span class="zh">知识底座</span></h3>
+        <ul>
+          <li><b>External markdown vault</b> — the hard drive: mounted, swappable, human-readable</li>
+          <li><b>VaultIndex</b> — 3,000+ notes in memory, ~800ms boot, incremental</li>
+          <li><b>KB corpus</b> — 9 note kinds: concept · formula · clause · case · pattern …</li>
+          <li><b>4D timeline</b> — every entity carries past · future · now</li>
+          <li><b>vault-map</b> — apps declare where their data lives, never hardcode</li>
+          <li><b>Conversation mode</b> — the system evolves itself in-context</li>
+          <li><b>Soft schema</b> — notes stay hand-editable, never locked to a model</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bridge">judgment&nbsp; ⇄ &nbsp;execution&nbsp;&nbsp;·&nbsp;&nbsp;split by <b>reversibility</b>, not by state-change</div>
+  </section>
+
+  <!-- ============ 2 · CAPABILITY STACK ============ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-dot"></span><span class="sec-tri">▸</span>
+      <span class="sec-title">Capability Stack &amp; Toolchain&nbsp;&nbsp;能力栈与工具链</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="tiles">
+      <div class="tile"><span class="ic">🧠</span><div class="nm">think</div><div class="pv">ollama · openai · claude-cli</div></div>
+      <div class="tile"><span class="ic">📖</span><div class="nm">read</div><div class="pv">filesystem · markitdown</div></div>
+      <div class="tile"><span class="ic">✍️</span><div class="nm">write</div><div class="pv">filesystem</div></div>
+      <div class="tile"><span class="ic">🔍</span><div class="nm">search</div><div class="pv">grep · BM25 + embeddings</div></div>
+      <div class="tile"><span class="ic">🔊</span><div class="nm">speak</div><div class="pv">edge-tts → openai → kokoro</div></div>
+      <div class="tile"><span class="ic">👂</span><div class="nm">listen</div><div class="pv">whisper</div></div>
+      <div class="tile"><span class="ic">🗣️</span><div class="nm">pronounce</div><div class="pv">wav2vec2 (local)</div></div>
+      <div class="tile"><span class="ic">🎨</span><div class="nm">draw</div><div class="pv">comfyui · FLUX</div></div>
+      <div class="tile"><span class="ic">🎞️</span><div class="nm">animate</div><div class="pv">comfyui-ltx</div></div>
+      <div class="tile"><span class="ic">🧩</span><div class="nm">model</div><div class="pv">cadquery → URDF</div></div>
+      <div class="tile"><span class="ic">📐</span><div class="nm">artifact</div><div class="pv">viz · standalone HTML</div></div>
+      <div class="tile"><span class="ic">👁️</span><div class="nm">see</div><div class="pv">webcam · OpenCV</div></div>
+      <div class="tile"><span class="ic">🌐</span><div class="nm">browse</div><div class="pv">playwright</div></div>
+      <div class="tile"><span class="ic">✉️</span><div class="nm">send</div><div class="pv">email-smtp</div></div>
+      <div class="tile"><span class="ic">🎬</span><div class="nm">footage</div><div class="pv">pexels · pixabay</div></div>
+      <div class="tile"><span class="ic">🌏</span><div class="nm">translate</div><div class="pv">NLLB-200 (local)</div></div>
+    </div>
+    <div class="chain"><b>Free-first chain</b> &nbsp;<span class="mono">claude-cli → ollama → openai-mini → openai</span>&nbsp; · cloud calls pass a consent gate · the human is always the final fallback</div>
+  </section>
+
+  <!-- ============ 3 · RUNTIME & LIVING LOOPS ============ -->
+  <section class="sec">
+    <div class="sec-head">
+      <span class="sec-dot"></span><span class="sec-tri">▸</span>
+      <span class="sec-title">Runtime Modes &amp; Living Loops&nbsp;&nbsp;运行时与自演化</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="modes">
+      <div class="mode"><div class="tag">Daemon</div><div class="nm"><span class="mono">:9000</span></div><div class="ds">Apps, events, and agents — the always-on runtime serving every UI.</div></div>
+      <div class="mode"><div class="tag">CLI</div><div class="nm"><span class="mono">eos</span></div><div class="ds">One-shot commands — proxies to the live daemon, or runs the local kernel.</div></div>
+      <div class="mode"><div class="tag">Conversation</div><div class="nm">codebase as context</div><div class="ds">Load the system as context and evolve it — the primary growth mechanism.</div></div>
+    </div>
+    <div class="loops">
+      <div class="loopline"></div>
+      <div class="loop-row">
+        <div class="loop"><div class="k">Ripple</div><div class="v"><b>git:saved → reactor</b><br>one action writes a journal breadcrumb</div></div>
+        <div class="loop"><div class="k">Daily</div><div class="v"><b>growth agent</b><br>proposes the next piece of work</div></div>
+        <div class="loop"><div class="k">Weekly</div><div class="v"><b>root agent</b><br>self-audit across 13 dimensions</div></div>
+        <div class="loop"><div class="k">Always</div><div class="v"><b>dogfood → fix → verify</b><br>the system repairs itself</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="foot">
+    <div class="badge a"><div class="sig">E</div><div><div class="bt">EmptyOS</div><div class="bs">with you, not for you</div></div></div>
+    <div class="badge b"><div class="sig">EST<br>2026</div><div><div class="bt">Mind Companion</div><div class="bs">an OS is just a human doing things</div></div></div>
+  </div>
+  <p class="stamp">The human owns the direction · the system owns reversible execution</p>
+
+</div>
+</body>
+</html>

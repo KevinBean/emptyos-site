@@ -59,7 +59,10 @@
   <article>
     <h1 style="font-size:1.8rem;color:var(--text-heading);margin-bottom:20px;font-weight:700">Architecture</h1>
     <div class="article">
-      <h2 id="core-thesis">Core Thesis<a class="header-link" href="#core-thesis" title="Permanent link">&para;</a></h2>
+      <blockquote>
+<p>🗺️ <strong><a href="architecture-poster.html">View the architecture panorama →</a></strong> — the whole system on one poster.</p>
+</blockquote>
+<h2 id="core-thesis">Core Thesis<a class="header-link" href="#core-thesis" title="Permanent link">&para;</a></h2>
 <p><strong>An operating system is just a human doing things.</strong> Reading files, writing notes, thinking about problems, searching for information. These are human capabilities first. Tools are optional accelerators.</p>
 <p>EmptyOS works at every level:</p>
 <table>
@@ -95,7 +98,7 @@
 </table>
 <h2 id="three-layers">Three Layers<a class="header-link" href="#three-layers" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────┐
-│  Apps (82, all first-class)                  │
+│  Apps (122, all first-class)                  │
 │  capture  search  journal  expense  task     │
 │  assistant  music-studio  jobs  finance ...  │
 ├─────────────────────────────────────────────┤
@@ -106,7 +109,7 @@
 │  Connectors: ollama, comfyui, voice-api      │
 ├─────────────────────────────────────────────┤
 │  Kernel                                      │
-│  Config, 7 Capabilities, EventBus,           │
+│  Config, 16 Capabilities, EventBus,          │
 │  ServiceRegistry, AppLoader, PluginLoader    │
 └─────────────────────────────────────────────┘
 </code></pre></div>
@@ -114,7 +117,7 @@
 <p><strong>Kernel</strong> — config, capabilities with provider chains, event bus, service registry, loaders. Human is always the final fallback.</p>
 <p><strong>Platform Runtime</strong> — shared infrastructure: services (always-running), libraries (imported), connectors (external adapters).</p>
 <p><strong>Apps</strong> — everything user-facing. All apps share the same manifest format and lifecycle. A capture app and a music studio are both apps — the difference is what they declare in their manifest.</p>
-<h2 id="7-capabilities">7 Capabilities<a class="header-link" href="#7-capabilities" title="Permanent link">&para;</a></h2>
+<h2 id="16-capabilities">16 Capabilities<a class="header-link" href="#16-capabilities" title="Permanent link">&para;</a></h2>
 <p>Every app accesses the world through capabilities, never direct tools:</p>
 <table>
 <thead>
@@ -132,8 +135,8 @@
 </tr>
 <tr>
 <td><strong>read</strong></td>
-<td>filesystem, human</td>
-<td>Read files</td>
+<td>filesystem, markitdown, human</td>
+<td>Read files &amp; documents</td>
 </tr>
 <tr>
 <td><strong>write</strong></td>
@@ -142,23 +145,68 @@
 </tr>
 <tr>
 <td><strong>search</strong></td>
-<td>grep, human</td>
+<td>grep (BM25 + embeddings), human</td>
 <td>Find content</td>
 </tr>
 <tr>
 <td><strong>speak</strong></td>
-<td>voice-api</td>
+<td>edge-tts → openai-tts → kokoro → xtts</td>
 <td>Text to speech</td>
 </tr>
 <tr>
 <td><strong>listen</strong></td>
-<td>whisper</td>
+<td>openai-whisper → whisper (local)</td>
 <td>Speech to text</td>
 </tr>
 <tr>
+<td><strong>pronounce</strong></td>
+<td>wav2vec2 (local)</td>
+<td>Phoneme-level pronunciation scoring</td>
+</tr>
+<tr>
 <td><strong>draw</strong></td>
-<td>comfyui</td>
+<td>comfyui (FLUX)</td>
 <td>Image generation</td>
+</tr>
+<tr>
+<td><strong>animate</strong></td>
+<td>comfyui-ltx</td>
+<td>Image to video</td>
+</tr>
+<tr>
+<td><strong>model</strong></td>
+<td>robot-modeller (cadquery → URDF)</td>
+<td>3D object modelling</td>
+</tr>
+<tr>
+<td><strong>artifact</strong></td>
+<td>viz (standalone HTML)</td>
+<td>One-shot HTML artifacts — diagrams, scenes, decks</td>
+</tr>
+<tr>
+<td><strong>see</strong></td>
+<td>webcam (OpenCV) → human</td>
+<td>Vision / camera capture</td>
+</tr>
+<tr>
+<td><strong>browse</strong></td>
+<td>playwright (headless Chromium)</td>
+<td>Headless web browsing</td>
+</tr>
+<tr>
+<td><strong>send</strong></td>
+<td>email-smtp → human</td>
+<td>Outbound messages</td>
+</tr>
+<tr>
+<td><strong>footage</strong></td>
+<td>pexels → pixabay → human</td>
+<td>Royalty-free stock video</td>
+</tr>
+<tr>
+<td><strong>translate</strong></td>
+<td>NLLB-200 (local) → llm-translate</td>
+<td>Machine translation</td>
 </tr>
 </tbody>
 </table>
@@ -222,7 +270,7 @@
 </ol>
 <p>Apps query by tag via <code>vault_query()</code>, read sections on demand, and pass prose to LLM when understanding is needed.</p>
 <h2 id="self-awareness">Self-Awareness<a class="header-link" href="#self-awareness" title="Permanent link">&para;</a></h2>
-<p>EmptyOS has a built-in integrity audit that scores 13 dimensions: 9 design principles, the Six Verbs metabolic cycle, plus security, privacy, and scale. A growth agent runs daily, a root agent reviews weekly. The topology graph at <code>/topology</code> visualizes all 82 apps and their connections in real time.</p>
+<p>EmptyOS has a built-in integrity audit that scores 13 dimensions: 9 design principles, the Six Verbs metabolic cycle, plus security, privacy, and scale. A growth agent runs daily, a root agent reviews weekly. The topology graph at <code>/topology</code> visualizes all 122 apps and their connections in real time.</p>
     </div>
   </article>
 </div>

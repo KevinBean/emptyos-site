@@ -122,19 +122,24 @@
 <td>Injects an SMTP provider into the <code>send</code> capability — outbound email via your own mail server</td>
 </tr>
 <tr>
+<td><strong>footage</strong></td>
+<td>Service</td>
+<td>Injects royalty-free stock-video providers into the <code>footage</code> capability — keyword → downloaded clip</td>
+</tr>
+<tr>
 <td><strong>global-hotkey</strong></td>
 <td>Service</td>
 <td>Listens for global OS keyboard shortcuts and emits them to the EventBus</td>
 </tr>
 <tr>
-<td><strong>headroom</strong></td>
-<td>Service</td>
-<td>Context compression middleware — shrinks <code>think</code> capability payloads before they reach cloud providers, using Headroom's three deterministic compressors (JSON SmartCrusher, AST CodeCompressor, ModernBERT-distilled Kompress-small for prose). Runs on CPU (~13ms via ONNX). Lazy-loaded — boot is unchanged when not installed</td>
-</tr>
-<tr>
 <td><strong>health</strong></td>
 <td>Service</td>
 <td>System health checks — capabilities, connectors, apps</td>
+</tr>
+<tr>
+<td><strong>markitdown</strong></td>
+<td>Service</td>
+<td>Local document → markdown conversion (PPTX/XLSX/DOCX/EPub/HTML/CSV/JSON/XML/ZIP) via Microsoft MarkItDown, run in an isolated user-home venv. Injects a provider into the read capability; PDFs are excluded (KB keeps the page-marked extractor). 100% local — no Azure, no cloud client</td>
 </tr>
 <tr>
 <td><strong>notifications</strong></td>
@@ -145,6 +150,11 @@
 <td><strong>obsidian</strong></td>
 <td>Service</td>
 <td>Declares Obsidian as EmptyOS's vault viewer — owns URI templates (obsidian://open, obsidian://new) used by every note link. Swap this plugin (or override uri_templates in config) to route note links through a different viewer</td>
+</tr>
+<tr>
+<td><strong>ocr</strong></td>
+<td>Service</td>
+<td>Local GPU OCR for image-only / scanned PDFs (and images) that have no text layer — the case markitdown and the KB page-marked extractor both punt on. Wraps datalab marker-pdf in an isolated user-home venv, injects a provider into the read capability that fires ONLY when in-process text extraction finds no text layer (born-digital PDFs are never shadowed). Returns page-marked markdown. 100% local — no cloud, no consent gate</td>
 </tr>
 <tr>
 <td><strong>ollama</strong></td>
@@ -177,9 +187,19 @@
 <td>Adds EmptyOS to the native Windows/macOS system tray</td>
 </tr>
 <tr>
+<td><strong>tailscale</strong></td>
+<td>Service</td>
+<td>Tailscale-aware integration — reads <code>tailscale status --json</code> to expose this node's tailnet identity, online peers, and Funnel state. Read-only: does not run <code>tailscale up/down</code>. Apps use <code>self.require("tailscale")</code> for peer-aware audit logs, device pickers, and is-this-request-from-my-tailnet checks</td>
+</tr>
+<tr>
 <td><strong>telegram</strong></td>
 <td>Service</td>
 <td>Push notifications + two-way bot via Telegram</td>
+</tr>
+<tr>
+<td><strong>translate</strong></td>
+<td>Service</td>
+<td>Local deterministic translation via Meta NLLB-200 (CTranslate2). English fans out to ~200 languages with stable output. Dark until a converted model is installed; the LLM translate provider covers everything until then</td>
 </tr>
 <tr>
 <td><strong>voice-api</strong></td>
