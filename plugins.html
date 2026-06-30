@@ -22,6 +22,7 @@
         <a href="architecture.html">Architecture</a>
         <a href="apps.html">Apps</a>
         <a href="capabilities.html">Capabilities</a>
+        <a href="editions.html">Editions</a>
         <a href="blog.html">Blog</a>
         <a href="tags.html">Tags</a>
         <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
@@ -48,6 +49,7 @@
       <li><a href="publish.html">Publish</a></li>
       <li><a href="learn.html">Learn</a></li>
       <li><a href="boards.html">Boards</a></li>
+      <li><a href="editions.html">Editions</a></li>
 
     </ul>
   </nav>
@@ -92,6 +94,11 @@
 <td>Articulated 3D object compile + URDF export via CadQuery, run inside a user-home Python 3.12 venv</td>
 </tr>
 <tr>
+<td><strong>claude-design</strong></td>
+<td>Service</td>
+<td>Connector for claude.ai/design — a named service (list/create/pull/push design projects, the EOS_UI-sweep round-trip) plus a cloud provider on the artifact capability. Transport is the Claude Code CLI bridge (DesignSync tool via agent-runtime); dark on headless deployments where the CLI isn't authed</td>
+</tr>
+<tr>
 <td><strong>comfyui</strong></td>
 <td>Enhancer (draw)</td>
 <td>GPU image generation via ComfyUI</td>
@@ -125,6 +132,11 @@
 <td><strong>global-hotkey</strong></td>
 <td>Service</td>
 <td>Listens for global OS keyboard shortcuts and emits them to the EventBus</td>
+</tr>
+<tr>
+<td><strong>gmail</strong></td>
+<td>Service</td>
+<td>Read-only Gmail access (scope-pinned to gmail.readonly) for in-system email categorization. No send/modify/delete</td>
 </tr>
 <tr>
 <td><strong>health</strong></td>
@@ -185,6 +197,11 @@
 <td><strong>tailscale</strong></td>
 <td>Service</td>
 <td>Tailscale-aware integration — reads <code>tailscale status --json</code> to expose this node's tailnet identity, online peers, and Funnel state. Read-only: does not run <code>tailscale up/down</code>. Apps use <code>self.require("tailscale")</code> for peer-aware audit logs, device pickers, and is-this-request-from-my-tailnet checks</td>
+</tr>
+<tr>
+<td><strong>tailscale-serve</strong></td>
+<td>Service</td>
+<td>Write-side companion to the read-only <code>tailscale</code> plugin. Runs <code>tailscale serve</code> to give the daemon zero-config tailnet HTTPS — reach EmptyOS securely from your phone/laptop without changing the daemon bind. Opt-in: inert until <code>[plugins.tailscale-serve] enabled=true</code>. Only ever proxies to 127.0.0.1, never exposes EmptyOS to the public internet (no Funnel). State is read from <code>tailscale serve status</code> every call, never cached</td>
 </tr>
 <tr>
 <td><strong>telegram</strong></td>
