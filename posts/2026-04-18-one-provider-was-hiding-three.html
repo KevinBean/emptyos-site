@@ -8,10 +8,12 @@
   <meta property="og:title" content="One provider was hiding three">
   <meta property="og:description" content="The dictionary had no sound. Chasing that revealed that the speak capability — the one supposedly guarding graceful fallback — was quietly pretending three engi">
   <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="One provider was hiding three">
+  <meta name="twitter:description" content="The dictionary had no sound. Chasing that revealed that the speak capability — the one supposedly guarding graceful fallback — was quietly pretending three engi">
   <link rel="stylesheet" href="../site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="../atom.xml">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <script>(function(){try{if(navigator.doNotTrack==='1')return;var u="http://localhost:9000/web-analytics/api/collect",s="emptyos";var b={site:s,path:location.pathname,referrer:document.referrer||''};var blob=new Blob([JSON.stringify(b)],{type:'text/plain'});if(navigator.sendBeacon){navigator.sendBeacon(u,blob);}else{fetch(u,{method:'POST',body:JSON.stringify(b),keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){});}}catch(e){}})();</script>
 </head>
 <body>
   <header class="site-header">
@@ -25,8 +27,8 @@
         <a href="../editions.html">Editions</a>
         <a href="../blog.html">Blog</a>
         <a href="../tags.html">Tags</a>
-        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+        <button class="search-toggle" onclick="openSearch()" title="Search" aria-label="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
       </nav>
     </div>
   </header>
@@ -37,7 +39,8 @@
     </div>
   </div>
   <main class="container">
-    <article>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "One provider was hiding three", "datePublished": "2026-04-18", "dateModified": "2026-04-18", "description": "The dictionary had no sound. Chasing that revealed that the speak capability — the one supposedly guarding graceful fallback — was quietly pretending three engines were one.", "url": "https://eos.binbian.net/posts/2026-04-18-one-provider-was-hiding-three.html", "mainEntityOfPage": "https://eos.binbian.net/posts/2026-04-18-one-provider-was-hiding-three.html"}</script>
+<article>
   
   
   <div class="post-layout">
@@ -58,6 +61,7 @@
 <p>One housekeeping extract fell out of the split: the TTS temp directory constant — <code>{tempdir}/emptyos-voice</code> — had gotten duplicated in four places (the service, two providers, and the dictionary app's audio route). We pulled it into <code>emptyos/capabilities/audio.py</code> alongside a small MIME map and rewired the three in-package call sites to import it. The standalone voice service keeps its own copy on purpose; it runs as a subprocess that shouldn't couple itself to the <code>emptyos</code> package just to share a string. A classic two-against-one extract: three code copies consolidate, one outlier stays the outlier for a reason worth writing down.</p>
 <p>What's left open: the provider chain order is a reasonable default but a strong opinion. Someone who wants privacy-first and never-cloud should put voice-api first and cut the OpenAI baseline; someone who wants quality-first on English should probably move openai-tts ahead of edge-tts. That sort of preference belongs in the providers app we built last session — the one that already handles the <code>think</code> capability's chain — but the UI still only edits think. When a second capability grows a reason to be reorderable from the browser (and speak is probably the first of those), the row schema will need a <code>capability</code> field and the save logic will need to learn which capability to mutate. Noted and deferred.</p>
       </div>
+      
       
       <div style="margin-top:48px;padding-top:20px;border-top:1px solid var(--border)">
   <h3 style="font-size:1rem;color:var(--text-heading);margin-bottom:12px">Related Posts</h3>
@@ -114,6 +118,12 @@
     if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
     if(e.key==='Escape')closeSearch();
   });
+  function _countOcc(hay,term){
+    if(!hay||!term)return 0;
+    var n=0,i=hay.indexOf(term);
+    while(i>=0){n++;i=hay.indexOf(term,i+term.length);}
+    return n;
+  }
   function doSearch(q){
     if(!_searchIndex){
       var searchUrl='../search-index.json';
@@ -123,10 +133,29 @@
     }
     var el=document.getElementById('search-results');
     if(!q.trim()){el.innerHTML='';return;}
+    // Ranked search: multi-term (AND), field-weighted (title x5, tags x3, summary x2, body x1),
+    // full-phrase-in-title bonus; sort by score desc then date desc.
     var lq=q.toLowerCase();
-    var hits=_searchIndex.filter(function(p){
-      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
-    }).slice(0,8);
+    var terms=lq.split(/\s+/).filter(function(t){return t;});
+    var scored=[];
+    for(var i=0;i<_searchIndex.length;i++){
+      var p=_searchIndex[i];
+      var title=(p.title||'').toLowerCase();
+      var tags=(p.tags||[]).join(' ').toLowerCase();
+      var summary=(p.summary||'').toLowerCase();
+      var body=(p.body_preview||'').toLowerCase();
+      var score=0,allPresent=true;
+      for(var t=0;t<terms.length;t++){
+        var h=_countOcc(title,terms[t])*5+_countOcc(tags,terms[t])*3+_countOcc(summary,terms[t])*2+_countOcc(body,terms[t]);
+        if(h===0){allPresent=false;break;}
+        score+=h;
+      }
+      if(!allPresent)continue;
+      if(title.indexOf(lq)>=0)score+=10;
+      scored.push({p:p,s:score});
+    }
+    scored.sort(function(a,b){return b.s!==a.s?b.s-a.s:(b.p.date||'').localeCompare(a.p.date||'');});
+    var hits=scored.slice(0,8).map(function(x){return x.p;});
     el.innerHTML=hits.map(function(p){
       var href=p.type==='page'?('../'+p.slug+'.html'):('../'+'posts/'+p.slug+'.html');
       return '<a class="search-result" href="'+href+'">'

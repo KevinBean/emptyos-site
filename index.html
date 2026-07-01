@@ -4,14 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EmptyOS — EmptyOS</title>
-  <meta name="description" content="A personal operating system built with AI — your tools, your data, your rules">
+  <meta name="description" content="One private AI infrastructure you own — shaped into a personal office, team workspace, engineering bench, or learning tool">
   <meta property="og:title" content="EmptyOS">
-  <meta property="og:description" content="A personal operating system built with AI — your tools, your data, your rules">
+  <meta property="og:description" content="One private AI infrastructure you own — shaped into a personal office, team workspace, engineering bench, or learning tool">
   <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EmptyOS">
+  <meta name="twitter:description" content="One private AI infrastructure you own — shaped into a personal office, team workspace, engineering bench, or learning tool">
   <link rel="stylesheet" href="site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="atom.xml">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <script>(function(){try{if(navigator.doNotTrack==='1')return;var u="http://localhost:9000/web-analytics/api/collect",s="emptyos";var b={site:s,path:location.pathname,referrer:document.referrer||''};var blob=new Blob([JSON.stringify(b)],{type:'text/plain'});if(navigator.sendBeacon){navigator.sendBeacon(u,blob);}else{fetch(u,{method:'POST',body:JSON.stringify(b),keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){});}}catch(e){}})();</script>
 </head>
 <body>
   <header class="site-header">
@@ -25,8 +27,8 @@
         <a href="editions.html">Editions</a>
         <a href="blog.html">Blog</a>
         <a href="tags.html">Tags</a>
-        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+        <button class="search-toggle" onclick="openSearch()" title="Search" aria-label="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
       </nav>
     </div>
   </header>
@@ -39,14 +41,15 @@
   <main class="container">
     <div class="landing-hero">
   <h1>EmptyOS</h1>
-  <div class="tagline">A local-first AI workspace you <strong>own</strong> — not another chat assistant you rent. AI helps you think, write, and stay organized using your own notes, on your own machine. Describe the outcome you want; the system plans it, builds it from your notes, and hands it to you to judge. Cloud models only ever see what you approve — by default, your notes never leave your computer.</div>
-  <div class="landing-cta"><a href="https://demo.binbian.net/?token=bLN9bRP-wMfBiaqsfI4OHuu3tGHtGsaeGsLk-8v71N8" class="cta-primary">Try the live demo →</a>
+  <div class="tagline"><strong>One AI infrastructure you own — shaped into whatever you need.</strong></div>
+  <div class="landing-cta"><a href="https://demo.binbian.net/?token=bLN9bRP-wMfBiaqsfI4OHuu3tGHtGsaeGsLk-8v71N8" class="cta-primary">Try the demo →</a>
+<a href="mailto:bianbin+contact@gmail.com?subject=EmptyOS%20enquiry" class="cta-secondary">Contact →</a>
+<a href="editions.html" class="cta-secondary">See the editions →</a>
 <a href="https://github.com/KevinBean/emptyos" class="cta-secondary">View on GitHub →</a>
-<a href="getting-started.html" class="cta-secondary">Get Started</a>
-<a href="architecture.html" class="cta-secondary">Architecture</a>
-<a href="editions.html" class="cta-secondary">Editions</a>
 </div>
-  <div class="hero-note"><blockquote>
+  <div class="hero-note"><p>Local-first and private by default — not another chat assistant you rent. Describe the outcome you want; the same kernel plans it, builds it from your own notes, and hands it to you to judge. Bring it to your own workflow or your team: bundle that one infrastructure a different way and it becomes a personal office, a team workspace, an engineering bench, or a language tutor. Your notes never leave your computer — cloud models only ever see what you approve.</p>
+<p><img alt="The whole system in one live graph — every app, event, and connection" src="assets/eos-topology.png" /></p>
+<blockquote>
 <p>The demo link signs you in to a public sandbox with sample notes — feel free to break things, but don't put real data in it.</p>
 </blockquote>
 <!-- stats:start -->
@@ -58,7 +61,28 @@
 
 <div class="metric-strip"><div class="metric-tile"><div class="metric-value">133</div><div class="metric-label">Apps</div></div><div class="metric-tile"><div class="metric-value">16</div><div class="metric-label">Capabilities</div></div><div class="metric-tile"><div class="metric-value">30</div><div class="metric-label">Plugins</div></div></div>
 
-<div class="gallery-section"><div class="section-heading">Screenshots</div><div class="gallery-grid"><figure class="gallery-tile"><a href="assets/eos-topology.png" target="_blank" rel="noopener"><img src="assets/eos-topology.png" alt="System topology — every app and event in one live graph" loading="lazy"></a><figcaption>System topology — every app and event in one live graph</figcaption></figure><figure class="gallery-tile"><a href="assets/eos-aura.png" target="_blank" rel="noopener"><img src="assets/eos-aura.png" alt="Voice assistant — talk to it, type to it, hands-free or tap-to-talk" loading="lazy"></a><figcaption>Voice assistant — talk to it, type to it, hands-free or tap-to-talk</figcaption></figure><figure class="gallery-tile"><a href="assets/eos-focus.png" target="_blank" rel="noopener"><img src="assets/eos-focus.png" alt="Focus timer — 25-minute sessions with a distraction-free fullscreen mode" loading="lazy"></a><figcaption>Focus timer — 25-minute sessions with a distraction-free fullscreen mode</figcaption></figure><figure class="gallery-tile"><a href="assets/eos-journal.png" target="_blank" rel="noopener"><img src="assets/eos-journal.png" alt="Journal — daily mood, free-write, and a year-at-a-glance heatmap" loading="lazy"></a><figcaption>Journal — daily mood, free-write, and a year-at-a-glance heatmap</figcaption></figure><figure class="gallery-tile"><a href="assets/eos-model-bench.png" target="_blank" rel="noopener"><img src="assets/eos-model-bench.png" alt="Model Bench — benchmark every AI provider on real tasks side-by-side" loading="lazy"></a><figcaption>Model Bench — benchmark every AI provider on real tasks side-by-side</figcaption></figure></div></div>
+<section class="editions-band">
+  <div class="editions-core">
+    <div class="editions-core-eyebrow">One infrastructure</div>
+    <div class="editions-core-title">kernel &middot; 16 capabilities &middot; event bus</div>
+    <div class="editions-core-sub">Same kernel, the same 16 capabilities, one event bus underneath everything. Once loaded, every app is equal. Only the set of apps changes.</div>
+  </div>
+  <div class="editions-fan" aria-hidden="true"></div>
+  <div class="editions-group">
+    <div class="editions-group-label">Open foundation &middot; public</div>
+    <div class="editions-grid editions-grid-public">
+<div class="edition-tile edition-public"><div class="edition-icon">🧩</div><div class="edition-name">Core</div><div class="edition-oneliner">Kernel minimum — vault, tasks, search, home</div><span class="edition-badge">Public</span></div><div class="edition-tile edition-public"><div class="edition-icon">🧱</div><div class="edition-name">Standard</div><div class="edition-oneliner">Full community OS — productivity, AI, creative apps</div><span class="edition-badge">Public</span></div>
+    </div>
+  </div>  <div class="editions-group">
+    <div class="editions-group-label">Tailored distributions &middot; private</div>
+    <div class="editions-grid">
+<div class="edition-tile edition-private"><div class="edition-icon">🗂</div><div class="edition-name">Personal office</div><div class="edition-oneliner">One person&#x27;s work and life in one place</div><span class="edition-badge">Private</span></div><div class="edition-tile edition-private"><div class="edition-icon">👥</div><div class="edition-name">Team workspace</div><div class="edition-oneliner">A shared workspace for a group</div><span class="edition-badge">Private</span></div><div class="edition-tile edition-private"><div class="edition-icon">⚡</div><div class="edition-name">Engineering bench</div><div class="edition-oneliner">Power-systems calculation and modelling apps</div><span class="edition-badge">Private</span></div><div class="edition-tile edition-private"><div class="edition-icon">🗣</div><div class="edition-name">Language tutor</div><div class="edition-oneliner">Guided practice for language learners</div><span class="edition-badge">Private</span></div><div class="edition-tile edition-private"><div class="edition-icon">🤖</div><div class="edition-name">Coding-agent memory</div><div class="edition-oneliner">Long-term memory for an AI coding tool</div><span class="edition-badge">Private</span></div>
+    </div>
+  </div>
+  <div class="editions-foot"><a href="editions.html">See how the editions split &rarr;</a></div>
+</section>
+
+<div class="gallery-section"><div class="section-heading">Screenshots</div><div class="gallery-grid"><figure class="gallery-tile"><a href="assets/eos-aura.png" target="_blank" rel="noopener"><img src="assets/eos-aura.png" alt="Voice assistant — talk to it, type to it, hands-free or tap-to-talk" loading="lazy"></a><figcaption>Voice assistant — talk to it, type to it, hands-free or tap-to-talk</figcaption></figure><figure class="gallery-tile"><a href="assets/eos-focus.png" target="_blank" rel="noopener"><img src="assets/eos-focus.png" alt="Focus timer — 25-minute sessions with a distraction-free fullscreen mode" loading="lazy"></a><figcaption>Focus timer — 25-minute sessions with a distraction-free fullscreen mode</figcaption></figure><figure class="gallery-tile"><a href="assets/eos-journal.png" target="_blank" rel="noopener"><img src="assets/eos-journal.png" alt="Journal — daily mood, free-write, and a year-at-a-glance heatmap" loading="lazy"></a><figcaption>Journal — daily mood, free-write, and a year-at-a-glance heatmap</figcaption></figure><figure class="gallery-tile"><a href="assets/eos-model-bench.png" target="_blank" rel="noopener"><img src="assets/eos-model-bench.png" alt="Model Bench — benchmark every AI provider on real tasks side-by-side" loading="lazy"></a><figcaption>Model Bench — benchmark every AI provider on real tasks side-by-side</figcaption></figure></div></div>
 
 <div class="feature-grid">
 <div class="feature-card">
@@ -85,12 +109,13 @@
   <div class="feature-icon">🖥</div>
   <h3>Every feature has a screen</h3>
   <div class="fc-body"><p>You can do anything from a browser tab. Keyboard shortcuts, themes, live updates. No command line needed unless you want one.</p></div>
-</div><div class="feature-card">
-  <div class="feature-icon">📦</div>
-  <h3>One platform, many editions</h3>
-  <div class="fc-body"><p>EmptyOS is the <strong>core</strong>. Everything else is a distribution built on the same platform — same kernel, capabilities, and event bus, just a different set of apps. <strong>Core</strong> and <strong>Standard</strong> ship open and public; branded distributions for specific audiences are private by default. <a href="editions.html">See the editions →</a></p></div>
 </div>
 </div>
+
+<section class="contact-band">
+  <div class="contact-heading">Want it running for you or your team? Explore the live demo, or get in touch.</div>
+  <div class="landing-cta"><a href="https://demo.binbian.net/?token=bLN9bRP-wMfBiaqsfI4OHuu3tGHtGsaeGsLk-8v71N8" class="cta-primary">Try the demo →</a><a href="mailto:bianbin+contact@gmail.com?subject=EmptyOS%20enquiry" class="cta-secondary">Contact →</a></div>
+</section>
 
 <div class="blog-preview">
   <div class="section-heading">Latest Updates</div>
@@ -117,6 +142,7 @@
   <div class="card-tags"><span class="tag">devlog</span> <span class="tag">emptyos</span> <span class="tag">refactor</span> <span class="tag">sdk</span></div>
 </a>
   </div>
+  <div class="blog-viewall"><a href="blog.html">View all writing &rarr;</a></div>
 </div>
   </main>
   <footer class="site-footer">
@@ -149,6 +175,12 @@
     if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
     if(e.key==='Escape')closeSearch();
   });
+  function _countOcc(hay,term){
+    if(!hay||!term)return 0;
+    var n=0,i=hay.indexOf(term);
+    while(i>=0){n++;i=hay.indexOf(term,i+term.length);}
+    return n;
+  }
   function doSearch(q){
     if(!_searchIndex){
       var searchUrl='search-index.json';
@@ -158,10 +190,29 @@
     }
     var el=document.getElementById('search-results');
     if(!q.trim()){el.innerHTML='';return;}
+    // Ranked search: multi-term (AND), field-weighted (title x5, tags x3, summary x2, body x1),
+    // full-phrase-in-title bonus; sort by score desc then date desc.
     var lq=q.toLowerCase();
-    var hits=_searchIndex.filter(function(p){
-      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
-    }).slice(0,8);
+    var terms=lq.split(/\s+/).filter(function(t){return t;});
+    var scored=[];
+    for(var i=0;i<_searchIndex.length;i++){
+      var p=_searchIndex[i];
+      var title=(p.title||'').toLowerCase();
+      var tags=(p.tags||[]).join(' ').toLowerCase();
+      var summary=(p.summary||'').toLowerCase();
+      var body=(p.body_preview||'').toLowerCase();
+      var score=0,allPresent=true;
+      for(var t=0;t<terms.length;t++){
+        var h=_countOcc(title,terms[t])*5+_countOcc(tags,terms[t])*3+_countOcc(summary,terms[t])*2+_countOcc(body,terms[t]);
+        if(h===0){allPresent=false;break;}
+        score+=h;
+      }
+      if(!allPresent)continue;
+      if(title.indexOf(lq)>=0)score+=10;
+      scored.push({p:p,s:score});
+    }
+    scored.sort(function(a,b){return b.s!==a.s?b.s-a.s:(b.p.date||'').localeCompare(a.p.date||'');});
+    var hits=scored.slice(0,8).map(function(x){return x.p;});
     el.innerHTML=hits.map(function(p){
       var href=p.type==='page'?(''+p.slug+'.html'):(''+'posts/'+p.slug+'.html');
       return '<a class="search-result" href="'+href+'">'

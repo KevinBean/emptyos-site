@@ -8,10 +8,12 @@
   <meta property="og:title" content="The audit had a blind spot">
   <meta property="og:description" content="The self-audit kept flagging 113 unheard events — but the audit itself was the component that was broken.">
   <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The audit had a blind spot">
+  <meta name="twitter:description" content="The self-audit kept flagging 113 unheard events — but the audit itself was the component that was broken.">
   <link rel="stylesheet" href="../site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="../atom.xml">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <script>(function(){try{if(navigator.doNotTrack==='1')return;var u="http://localhost:9000/web-analytics/api/collect",s="emptyos";var b={site:s,path:location.pathname,referrer:document.referrer||''};var blob=new Blob([JSON.stringify(b)],{type:'text/plain'});if(navigator.sendBeacon){navigator.sendBeacon(u,blob);}else{fetch(u,{method:'POST',body:JSON.stringify(b),keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){});}}catch(e){}})();</script>
 </head>
 <body>
   <header class="site-header">
@@ -25,8 +27,8 @@
         <a href="../editions.html">Editions</a>
         <a href="../blog.html">Blog</a>
         <a href="../tags.html">Tags</a>
-        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+        <button class="search-toggle" onclick="openSearch()" title="Search" aria-label="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
       </nav>
     </div>
   </header>
@@ -37,7 +39,8 @@
     </div>
   </div>
   <main class="container">
-    <article>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "The audit had a blind spot", "datePublished": "2026-04-18", "dateModified": "2026-04-18", "description": "The self-audit kept flagging 113 unheard events — but the audit itself was the component that was broken.", "url": "https://eos.binbian.net/posts/2026-04-18-the-audit-had-a-blind-spot.html", "mainEntityOfPage": "https://eos.binbian.net/posts/2026-04-18-the-audit-had-a-blind-spot.html"}</script>
+<article>
   
   
   <div class="post-layout">
@@ -59,6 +62,7 @@
 <p>What this session really buys is trust in the self-audit. A system that scores itself 85% when reality is 94% isn't just miscalibrated — it's going to drag attention toward work that doesn't need doing and away from the one real gap (the wheel-of-life signal showing intellectual and occupational dimensions dominating). The audit is one of the surfaces we rely on to decide what to do next; if it's systematically underreporting the connections that actually exist, the whole loop is polluted. This is why we keep re-testing our introspection tools against reality: the value of the check isn't the number it produces, it's whether that number is worth acting on.</p>
 <p>Still open: the integrity app where the fix lives is in the personal tree, so the patch stays local for now. If a community equivalent gets built, the mixin-aware discovery needs to port with it. And the self-audit still only reads the static code — it won't catch handlers attached dynamically at runtime. That's a further-out problem, but worth flagging: we've taught the checker to see the shapes we already use. We haven't taught it humility about shapes we haven't invented yet.</p>
       </div>
+      
       
       <div style="margin-top:48px;padding-top:20px;border-top:1px solid var(--border)">
   <h3 style="font-size:1rem;color:var(--text-heading);margin-bottom:12px">Related Posts</h3>
@@ -115,6 +119,12 @@
     if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
     if(e.key==='Escape')closeSearch();
   });
+  function _countOcc(hay,term){
+    if(!hay||!term)return 0;
+    var n=0,i=hay.indexOf(term);
+    while(i>=0){n++;i=hay.indexOf(term,i+term.length);}
+    return n;
+  }
   function doSearch(q){
     if(!_searchIndex){
       var searchUrl='../search-index.json';
@@ -124,10 +134,29 @@
     }
     var el=document.getElementById('search-results');
     if(!q.trim()){el.innerHTML='';return;}
+    // Ranked search: multi-term (AND), field-weighted (title x5, tags x3, summary x2, body x1),
+    // full-phrase-in-title bonus; sort by score desc then date desc.
     var lq=q.toLowerCase();
-    var hits=_searchIndex.filter(function(p){
-      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
-    }).slice(0,8);
+    var terms=lq.split(/\s+/).filter(function(t){return t;});
+    var scored=[];
+    for(var i=0;i<_searchIndex.length;i++){
+      var p=_searchIndex[i];
+      var title=(p.title||'').toLowerCase();
+      var tags=(p.tags||[]).join(' ').toLowerCase();
+      var summary=(p.summary||'').toLowerCase();
+      var body=(p.body_preview||'').toLowerCase();
+      var score=0,allPresent=true;
+      for(var t=0;t<terms.length;t++){
+        var h=_countOcc(title,terms[t])*5+_countOcc(tags,terms[t])*3+_countOcc(summary,terms[t])*2+_countOcc(body,terms[t]);
+        if(h===0){allPresent=false;break;}
+        score+=h;
+      }
+      if(!allPresent)continue;
+      if(title.indexOf(lq)>=0)score+=10;
+      scored.push({p:p,s:score});
+    }
+    scored.sort(function(a,b){return b.s!==a.s?b.s-a.s:(b.p.date||'').localeCompare(a.p.date||'');});
+    var hits=scored.slice(0,8).map(function(x){return x.p;});
     el.innerHTML=hits.map(function(p){
       var href=p.type==='page'?('../'+p.slug+'.html'):('../'+'posts/'+p.slug+'.html');
       return '<a class="search-result" href="'+href+'">'

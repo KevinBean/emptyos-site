@@ -8,10 +8,12 @@
   <meta property="og:title" content="Making the coding agent legible">
   <meta property="og:description" content="The agent worked — but the web UI couldn't tell you which model was behind it, the command surface was invisible, and when a provider rejected a request the err">
   <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Making the coding agent legible">
+  <meta name="twitter:description" content="The agent worked — but the web UI couldn't tell you which model was behind it, the command surface was invisible, and when a provider rejected a request the err">
   <link rel="stylesheet" href="../site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="../atom.xml">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <script>(function(){try{if(navigator.doNotTrack==='1')return;var u="http://localhost:9000/web-analytics/api/collect",s="emptyos";var b={site:s,path:location.pathname,referrer:document.referrer||''};var blob=new Blob([JSON.stringify(b)],{type:'text/plain'});if(navigator.sendBeacon){navigator.sendBeacon(u,blob);}else{fetch(u,{method:'POST',body:JSON.stringify(b),keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){});}}catch(e){}})();</script>
 </head>
 <body>
   <header class="site-header">
@@ -25,8 +27,8 @@
         <a href="../editions.html">Editions</a>
         <a href="../blog.html">Blog</a>
         <a href="../tags.html">Tags</a>
-        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+        <button class="search-toggle" onclick="openSearch()" title="Search" aria-label="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
       </nav>
     </div>
   </header>
@@ -37,7 +39,8 @@
     </div>
   </div>
   <main class="container">
-    <article>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Making the coding agent legible", "datePublished": "2026-04-19", "dateModified": "2026-04-19", "description": "The agent worked — but the web UI couldn't tell you which model was behind it, the command surface was invisible, and when a provider rejected a request the error said nothing useful. Fixing that revealed a silent wire-compat bug we'd been shipping for weeks.", "url": "https://eos.binbian.net/posts/2026-04-19-making-the-coding-agent-legible.html", "mainEntityOfPage": "https://eos.binbian.net/posts/2026-04-19-making-the-coding-agent-legible.html"}</script>
+<article>
   
   
   <div class="post-layout">
@@ -57,6 +60,7 @@
 <p>Then somebody asked the agent to play a song, and everything fell over. Ollama returned a 400. Our client caught it and raised <code>RuntimeError: 400, message='Bad Request'</code> — which is worse than useless, because it tells you a failure happened without telling you what Ollama objected to. The error path had been swallowing the response body for months, possibly forever. First fix: read the body, parse <code>error.message</code>, and raise a real exception: <code>RuntimeError: ollama tool-call request failed (HTTP 400): &lt;actual message&gt;</code>. That change is the kind of thing that feels like chore work until it pays. The next retry revealed the actual problem immediately: <code>invalid message content type: &lt;nil&gt;</code>. Ollama was rejecting the assistant message we'd just sent, because it had <code>content: null</code> alongside <code>tool_calls</code>. OpenAI's spec permits that shape; Ollama's implementation doesn't. Our loop had been setting <code>content = text or None</code> for tool-only assistant turns — perfectly fine against OpenAI and Anthropic, silently wrong against Ollama. One character: <code>None</code> → <code>""</code>. And a matching fix one layer down, because sessions persisted before today had <code>null</code> stored in the database; the normalization layer that rebuilds OpenAI message shape now coerces any null assistant content to empty string at wire time, so replay through Ollama heals historical rows without a migration.</p>
 <p>What this makes possible: the agent is now a real Claude-Code-grade tool you can sit in front of and use, whether you prefer the terminal or the browser. Both know what model they're running; both know what commands exist; both route slash commands client-side; both show the tool list; both handle provider switches. And because the error-surfacing path now tells us what providers are actually complaining about, the next wire-format mismatch — from some future local model, or from a provider that reads the spec slightly differently — will show up as a real error message rather than a silent 400 swallow. There's still one frayed edge worth naming: the assistant app has its own <code>/api/slash-commands</code> endpoint with different semantics (server-side routing to other EmptyOS apps, not client-side UI control), and the two shouldn't be unified yet — different contracts, different execution models, different UX. If a third app ever wants client-side slash commands, <em>that's</em> the moment to extract the palette into a shared helper. Not before.</p>
       </div>
+      
       
       <div style="margin-top:48px;padding-top:20px;border-top:1px solid var(--border)">
   <h3 style="font-size:1rem;color:var(--text-heading);margin-bottom:12px">Related Posts</h3>
@@ -113,6 +117,12 @@
     if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
     if(e.key==='Escape')closeSearch();
   });
+  function _countOcc(hay,term){
+    if(!hay||!term)return 0;
+    var n=0,i=hay.indexOf(term);
+    while(i>=0){n++;i=hay.indexOf(term,i+term.length);}
+    return n;
+  }
   function doSearch(q){
     if(!_searchIndex){
       var searchUrl='../search-index.json';
@@ -122,10 +132,29 @@
     }
     var el=document.getElementById('search-results');
     if(!q.trim()){el.innerHTML='';return;}
+    // Ranked search: multi-term (AND), field-weighted (title x5, tags x3, summary x2, body x1),
+    // full-phrase-in-title bonus; sort by score desc then date desc.
     var lq=q.toLowerCase();
-    var hits=_searchIndex.filter(function(p){
-      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
-    }).slice(0,8);
+    var terms=lq.split(/\s+/).filter(function(t){return t;});
+    var scored=[];
+    for(var i=0;i<_searchIndex.length;i++){
+      var p=_searchIndex[i];
+      var title=(p.title||'').toLowerCase();
+      var tags=(p.tags||[]).join(' ').toLowerCase();
+      var summary=(p.summary||'').toLowerCase();
+      var body=(p.body_preview||'').toLowerCase();
+      var score=0,allPresent=true;
+      for(var t=0;t<terms.length;t++){
+        var h=_countOcc(title,terms[t])*5+_countOcc(tags,terms[t])*3+_countOcc(summary,terms[t])*2+_countOcc(body,terms[t]);
+        if(h===0){allPresent=false;break;}
+        score+=h;
+      }
+      if(!allPresent)continue;
+      if(title.indexOf(lq)>=0)score+=10;
+      scored.push({p:p,s:score});
+    }
+    scored.sort(function(a,b){return b.s!==a.s?b.s-a.s:(b.p.date||'').localeCompare(a.p.date||'');});
+    var hits=scored.slice(0,8).map(function(x){return x.p;});
     el.innerHTML=hits.map(function(p){
       var href=p.type==='page'?('../'+p.slug+'.html'):('../'+'posts/'+p.slug+'.html');
       return '<a class="search-result" href="'+href+'">'

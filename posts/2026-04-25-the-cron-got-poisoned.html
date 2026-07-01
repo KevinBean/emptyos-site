@@ -8,10 +8,12 @@
   <meta property="og:title" content="The cron got poisoned because writes weren't validated">
   <meta property="og:description" content="Three scheduled agents had been silently skipping at boot for days. The bug was a free-prose field landing in a place that needed strict syntax.">
   <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The cron got poisoned because writes weren't validated">
+  <meta name="twitter:description" content="Three scheduled agents had been silently skipping at boot for days. The bug was a free-prose field landing in a place that needed strict syntax.">
   <link rel="stylesheet" href="../site.css">
   <link rel="alternate" type="application/atom+xml" title="EmptyOS Feed" href="../atom.xml">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-  <script>(function(){try{if(navigator.doNotTrack==='1')return;var u="http://localhost:9000/web-analytics/api/collect",s="emptyos";var b={site:s,path:location.pathname,referrer:document.referrer||''};var blob=new Blob([JSON.stringify(b)],{type:'text/plain'});if(navigator.sendBeacon){navigator.sendBeacon(u,blob);}else{fetch(u,{method:'POST',body:JSON.stringify(b),keepalive:true,headers:{'Content-Type':'text/plain'}}).catch(function(){});}}catch(e){}})();</script>
 </head>
 <body>
   <header class="site-header">
@@ -25,8 +27,8 @@
         <a href="../editions.html">Editions</a>
         <a href="../blog.html">Blog</a>
         <a href="../tags.html">Tags</a>
-        <button class="search-toggle" onclick="openSearch()" title="Search">&#128269;</button>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">&#9790;</button>
+        <button class="search-toggle" onclick="openSearch()" title="Search" aria-label="Search">&#128269;</button>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">&#9790;</button>
       </nav>
     </div>
   </header>
@@ -37,7 +39,8 @@
     </div>
   </div>
   <main class="container">
-    <article>
+    <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "The cron got poisoned because writes weren't validated", "datePublished": "2026-04-25", "dateModified": "2026-04-25", "description": "Three scheduled agents had been silently skipping at boot for days. The bug was a free-prose field landing in a place that needed strict syntax.", "url": "https://eos.binbian.net/posts/2026-04-25-the-cron-got-poisoned.html", "mainEntityOfPage": "https://eos.binbian.net/posts/2026-04-25-the-cron-got-poisoned.html"}</script>
+<article>
   
   
   <div class="post-layout">
@@ -57,6 +60,7 @@
 <p>We're not extracting this to the SDK yet. The journal version uses an asyncio lock plus a single-line check; the highlights one is a coercion-to-dict helper; the new cron one is a parse-or-reject. They're not the same shape. The rule we keep is: extract on the second consumer of the <em>same</em> shape, not the second instance of the same theme. So the tag stays as a watch-list item — when a third write boundary surfaces with the same parse-or-reject pattern, that's the moment to lift it into <code>BaseApp</code> as a generic guard. Until then, three small implementations beat a premature abstraction that fits none of them well.</p>
 <p>The agents are running again. The audit log will tell us if any silently break in the future before three weeks of journal absence does.</p>
       </div>
+      
       
       <div style="margin-top:48px;padding-top:20px;border-top:1px solid var(--border)">
   <h3 style="font-size:1rem;color:var(--text-heading);margin-bottom:12px">Related Posts</h3>
@@ -113,6 +117,12 @@
     if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openSearch();}
     if(e.key==='Escape')closeSearch();
   });
+  function _countOcc(hay,term){
+    if(!hay||!term)return 0;
+    var n=0,i=hay.indexOf(term);
+    while(i>=0){n++;i=hay.indexOf(term,i+term.length);}
+    return n;
+  }
   function doSearch(q){
     if(!_searchIndex){
       var searchUrl='../search-index.json';
@@ -122,10 +132,29 @@
     }
     var el=document.getElementById('search-results');
     if(!q.trim()){el.innerHTML='';return;}
+    // Ranked search: multi-term (AND), field-weighted (title x5, tags x3, summary x2, body x1),
+    // full-phrase-in-title bonus; sort by score desc then date desc.
     var lq=q.toLowerCase();
-    var hits=_searchIndex.filter(function(p){
-      return (p.title+' '+p.summary+' '+(p.tags||[]).join(' ')+' '+(p.body_preview||'')).toLowerCase().indexOf(lq)>=0;
-    }).slice(0,8);
+    var terms=lq.split(/\s+/).filter(function(t){return t;});
+    var scored=[];
+    for(var i=0;i<_searchIndex.length;i++){
+      var p=_searchIndex[i];
+      var title=(p.title||'').toLowerCase();
+      var tags=(p.tags||[]).join(' ').toLowerCase();
+      var summary=(p.summary||'').toLowerCase();
+      var body=(p.body_preview||'').toLowerCase();
+      var score=0,allPresent=true;
+      for(var t=0;t<terms.length;t++){
+        var h=_countOcc(title,terms[t])*5+_countOcc(tags,terms[t])*3+_countOcc(summary,terms[t])*2+_countOcc(body,terms[t]);
+        if(h===0){allPresent=false;break;}
+        score+=h;
+      }
+      if(!allPresent)continue;
+      if(title.indexOf(lq)>=0)score+=10;
+      scored.push({p:p,s:score});
+    }
+    scored.sort(function(a,b){return b.s!==a.s?b.s-a.s:(b.p.date||'').localeCompare(a.p.date||'');});
+    var hits=scored.slice(0,8).map(function(x){return x.p;});
     el.innerHTML=hits.map(function(p){
       var href=p.type==='page'?('../'+p.slug+'.html'):('../'+'posts/'+p.slug+'.html');
       return '<a class="search-result" href="'+href+'">'
